@@ -20,7 +20,7 @@ The infrastructure was developed on the AWS cloud platform.
 
 The `facebook-ingest/env/` contains the environment configuration files, one for each of your AWS environments.
 
-For example: substitute `example_enviroment.yaml` with `dev.yaml` for a development environment.
+The name of the files corresponds to the environment names. For example: substitute `example_enviroment.yaml` with `dev.yaml` for a development environment.
 
 ## Deployment instructions
 
