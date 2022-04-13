@@ -34,6 +34,12 @@ By default, the glue job is triggered by the following rules:
 - Every 55 minutes, between 6 and 20, from Mondays to Fridays
 - At 10, on Saturdays and Sundays
 
+## Open source libraries used in this project
+
+- Serverless Framework: https://github.com/serverless/serverless
+- serverless-glue: https://github.com/toryas/serverless-glue
+
+
 ---
 
 This is a project created by [Linkalab](https://linkalab.it) and Talent Garden [Talent Garden](https://talentgarden.org).
