@@ -3,6 +3,12 @@
 This glue jobs uses the Facebook Marketing API to retrieve `ad`, `ad_set`, `campaign`, `ad_image`, and `ad_insights` (also known as facebook's `extractions`) data for all advertising account under your business account on Facebook. 
 For each API object, the job retrieves the last execution time, and gets all updated/new data since then. It then proceeds to store data, metadata, and it runs the crawler to add new data to the catalog.
 
+The glue script is of type `pythonshell`.
+
+The infrastructure is described (IaC) and deployed with Serverless Framework (https://www.serverless.com/framework/).
+
+The infrastructure was developed on the AWS cloud platform.
+
 ## Checklist
 
 - [ ] TODO: Make example IAM policy that includes all the required permissions, then test it.
