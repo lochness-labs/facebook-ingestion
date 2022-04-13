@@ -13,8 +13,8 @@ The infrastructure was developed on the AWS cloud platform.
 
 - [ ] TODO: Make example IAM policy that includes all the required permissions, then test it.
 - [ ] TODO: Add remaining open source libaries attributions.
-- [ ] TODO: Virtual environment instructions.
-- [ ] TODO: Add remaining deployment instructions.
+- [ ] TODO: Virtual environment setup instructions.
+- [ ] TODO: Test deployment instructions (and add missing instructions if needed).
 
 ## Environments setup
 
