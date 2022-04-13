@@ -1,0 +1,9 @@
+job_name: facebook_ingestion
+code_bucket: example-code-s3-bucket-name
+code_prefix: glue-code/scripts
+role_arn: arn:aws:iam::000000000000:role/example_glue_role
+wr: s3://example-code-s3-bucket-name/glue-code/scripts/facebook_ingestion_dev/libraries/awswrangler-2.12.1-py3-none-any.whl
+facebook_sdk: s3://example-code-s3-bucket-name/glue-code/scripts/facebook_ingestion_dev/libraries/facebook_business-12.0.0-py3-none-any.whl
+pandas: s3://example-code-s3-bucket-name/glue-code/scripts/facebook_ingestion_dev/libraries/facebook_business-12.0.0-py3-none-any.whl
+secret_name: accessToken-appId-appSecret-businessId/facebookApi/ingestion
+data_bucket: example-data-s3-bucket-name

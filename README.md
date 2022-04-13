@@ -13,3 +13,10 @@ For each API object, the job retrieves the last execution time, and gets all upd
 
 - Node.js and NPM: https://nodejs.org/en/
 - Serverless Framework: https://www.serverless.com/framework/docs/getting-started/
+
+## Environments
+
+The `facebook-ingest/env/` contains the environment configuration files, one for each of your AWS environments.
+
+For example: substitute `example_enviroment.yaml` with `dev.yaml` for a development environment.
+
