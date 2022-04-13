@@ -12,7 +12,6 @@ The infrastructure was developed on the AWS cloud platform.
 ## Checklist
 
 - [ ] TODO: Make example IAM policy that includes all the required permissions, then test it.
-- [ ] TODO: Add remaining open source libaries attributions.
 - [ ] TODO: Virtual environment setup instructions.
 - [ ] TODO: Test deployment instructions (and add missing instructions if needed).
 
@@ -54,9 +53,11 @@ By default, the glue job is triggered by the following rules:
 ## Open source libraries used in this project
 
 - Serverless Framework: https://github.com/serverless/serverless
-- serverless-glue: https://github.com/toryas/serverless-glue
-- awswrangler
-- pandas
+- Serverless Glue: https://github.com/toryas/serverless-glue
+- Pandas: https://github.com/pandas-dev/pandas
+- AWS Data Wrangler: https://github.com/awslabs/aws-data-wrangler
+- Boto3 (AWS SDK for Python): https://github.com/boto/boto3
+- Facebook Business SDK for Python: https://github.com/facebook/facebook-python-business-sdk
 
 ---
 
