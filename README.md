@@ -30,7 +30,6 @@ The infrastructure was developed on the AWS cloud platform.
 5. Deploy on AWS with: `sls deploy --stage {stage}`.
    1. Substitute `{stage}` with one of the available stages defined as the YAML files in the `facebook-ingest/env/` directory.
 
-
 ## Requirements
 
 - Node.js and NPM: https://nodejs.org/en/
@@ -53,7 +52,6 @@ By default, the glue job is triggered by the following rules:
 
 - Serverless Framework: https://github.com/serverless/serverless
 - serverless-glue: https://github.com/toryas/serverless-glue
-
 
 ---
 
