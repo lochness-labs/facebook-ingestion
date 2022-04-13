@@ -12,8 +12,9 @@ The infrastructure was developed on the AWS cloud platform.
 ## Checklist
 
 - [ ] TODO: Make example IAM policy that includes all the required permissions, then test it.
-- [ ] TODO: Open source libaries attribution.
+- [ ] TODO: Add remaining open source libaries attributions.
 - [ ] TODO: Virtual environment instructions.
+- [ ] TODO: Deployment instructions.
 
 ## Requirements
 
