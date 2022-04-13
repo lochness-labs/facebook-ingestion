@@ -20,3 +20,6 @@ The `facebook-ingest/env/` contains the environment configuration files, one for
 
 For example: substitute `example_enviroment.yaml` with `dev.yaml` for a development environment.
 
+---
+
+This is a project created by [Linkalab](https://linkalab.it) and Talent Garden [Talent Garden](https://talentgarden.org).
