@@ -1,6 +1,7 @@
-# facebook-ingestion
+# Facebook Ingestion for Data Lakes
 
-Facebook Ingestion workflow as a Glue Job
+This glue jobs uses the Facebook Marketing API to retrieve `ad`, `ad_set`, `campaign`, `ad_image`, and `ad_insights` (also known as facebook's `extractions`) data for all advertising account under your business account on Facebook. 
+For each API object, the job retrieves the last execution time, and gets all updated/new data since then. It then proceeds to store data, metadata, and it runs the crawler to add new data to the catalog.
 
 ## Checklist
 
