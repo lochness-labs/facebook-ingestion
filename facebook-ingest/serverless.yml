@@ -1,0 +1,59 @@
+service: facebook-ingestion
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  region: eu-west-1
+  stage: ${opt:stage}
+  deploymentBucket: 
+    name: ${self:custom.env.code_bucket}
+    maxPreviousDeploymentArtifacts: 5
+
+custom:
+  env: ${file(./env/${self:provider.stage}.yaml)}
+
+Glue:
+  bucketDeploy: ${self:custom.env.code_bucket}
+  s3Prefix: ${self:custom.env.code_prefix}/${self:custom.env.job_name}_${self:provider.stage}/
+  tempDirBucket: ${self:custom.env.code_bucket}
+  tempDirS3Prefix: ${self:custom.env.code_prefix}/temp
+  
+  jobs:
+    - name: ${self:custom.env.job_name}_${self:provider.stage}
+      scriptPath: ./facebook_ingest.py
+      tempDir: true
+      type: pythonshell
+      glueVersion: python3-1.0
+      role: ${self:custom.env.role_arn}
+      MaxConcurrentRuns: 1
+      MaxRetries: 0
+      Timeout: 45
+      DefaultArguments:
+        class: GlueApp
+        extraPyFiles: ${self:custom.env.wr},${self:custom.env.facebook_sdk},${self:custom.env.pandas}
+        customArguments:
+          secret_name: ${self:custom.env.secret_name}
+          data_bucket: ${self:custom.env.data_bucket}
+      SupportFiles:
+        - local_path: ../libraries
+          s3_bucket: ${self:custom.env.code_bucket}
+          s3_prefix: ${self:custom.env.code_prefix}/${self:custom.env.job_name}_${self:provider.stage}/libraries/
+          execute_upload: False
+  triggers:
+    - name: Weekends Facebook Ingestion 
+      schedule: 0 10 ? * SAT-SUN *
+      actions:
+        - name: ${self:custom.env.job_name}_${self:provider.stage}
+          args: 
+            secret_name: ${self:custom.env.secret_name}
+            data_bucket: ${self:custom.env.data_bucket}  
+    - name: Weekdays Facebook Ingestion
+      schedule: 0 7-19/3 ? * MON-FRI *
+      actions:
+        - name: ${self:custom.env.job_name}_${self:provider.stage}
+          args: 
+            secret_name: ${self:custom.env.secret_name}
+            data_bucket: ${self:custom.env.data_bucket}  
+
+plugins:
+    - serverless-glue
