@@ -56,7 +56,15 @@ By default, the glue job is triggered by the following rules:
 - Every 55 minutes, between 6 and 20, from Mondays to Fridays
 - At 10, on Saturdays and Sundays
 
-## Open source libraries used in this project
+## License
+
+This project is licensed under the **Apache License 2.0**.
+
+See [LICENSE](LICENSE) for more information.
+
+## Acknowledgements
+
+Many thanks to the mantainers of the open source libraries used in this project:
 
 - Serverless Framework: https://github.com/serverless/serverless
 - Serverless Glue: https://github.com/toryas/serverless-glue
@@ -64,6 +72,8 @@ By default, the glue job is triggered by the following rules:
 - AWS Data Wrangler: https://github.com/awslabs/aws-data-wrangler
 - Boto3 (AWS SDK for Python): https://github.com/boto/boto3
 - Facebook Business SDK for Python: https://github.com/facebook/facebook-python-business-sdk
+
+Contact us if we missed an acknowledgement to your library.
 
 ---
 
