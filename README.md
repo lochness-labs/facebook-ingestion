@@ -26,7 +26,8 @@ The infrastructure was developed on the AWS cloud platform.
    1. For example, we named it `accessToken-appId-appSecret-businessId/facebookApi/ingestion`.
 3. Make a IAM role for the Glue job, that includes all the required permissions (as per the example policy **that is coming soon, TODO**)
    1. Substitute its ARN in the `facebook-ingest/env/dev.yaml` file (`role_arn: arn:aws:iam::000000000000:role/example_glue_role`).
-4. Deploy on AWS with: `sls deploy --stage {stage}`
+4. Install npm dependencies: `npm install`.
+5. Deploy on AWS with: `sls deploy --stage {stage}`
    1. Substitute `{stage}` with one of the available stages defined as the YAML files in the `facebook-ingest/env/` directory.
 
 
