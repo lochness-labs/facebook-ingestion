@@ -27,6 +27,13 @@ The `facebook-ingest/env/` contains the environment configuration files, one for
 
 For example: substitute `example_enviroment.yaml` with `dev.yaml` for a development environment.
 
+## Trigger Schedule:
+
+By default, the glue job is triggered by the following rules:
+
+- Every 55 minutes, between 6 and 20, from Mondays to Fridays
+- At 10, on Saturdays and Sundays
+
 ---
 
 This is a project created by [Linkalab](https://linkalab.it) and Talent Garden [Talent Garden](https://talentgarden.org).
