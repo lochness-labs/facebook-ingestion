@@ -12,14 +12,25 @@ The infrastructure was developed on the AWS cloud platform.
 ## Checklist
 
 - [ ] TODO: Make example IAM policy that includes all the required permissions, then test it.
-- [ ] TODO: Virtual environment setup instructions.
 - [ ] TODO: Test deployment instructions (and add missing instructions if needed).
+
+## Requirements
+
+- Node.js and NPM: https://nodejs.org/en/
+- Serverless Framework: https://www.serverless.com/framework/docs/getting-started/
+- virtualenv: 
 
 ## Environments setup
 
 The `facebook-ingest/env/` contains the environment configuration files, one for each of your AWS environments.
 
 The name of the files corresponds to the environment names. For example: substitute `example_enviroment.yaml` with `dev.yaml` for a development environment.
+
+## Development environment setup
+
+1. Create virtualenv: `virtualenv -p python3 venv`
+2. Activate virtualenv: `source venv/bin/activate`
+3. Install requirements: `pip install -r requirements.txt`
 
 ## Deployment instructions
 
@@ -37,11 +48,6 @@ The name of the files corresponds to the environment names. For example: substit
 5. Install npm dependencies: `npm install`.
 6. Deploy on AWS with: `sls deploy --stage {stage}`.
    1. Substitute `{stage}` with one of the available stages defined as the YAML files in the `facebook-ingest/env/` directory.
-
-## Requirements
-
-- Node.js and NPM: https://nodejs.org/en/
-- Serverless Framework: https://www.serverless.com/framework/docs/getting-started/
 
 ## Trigger Schedule:
 
