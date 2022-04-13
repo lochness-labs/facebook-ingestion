@@ -67,4 +67,4 @@ By default, the glue job is triggered by the following rules:
 
 ---
 
-This is a project created by [Linkalab](https://linkalab.it) and Talent Garden [Talent Garden](https://talentgarden.org).
+This is a project created by [Linkalab](https://linkalab.it) and [Talent Garden](https://talentgarden.org).
