@@ -34,18 +34,18 @@ The name of the files corresponds to the environment names. For example: substit
 
 ## Deployment instructions
 
-1. Make a copy of `env/example-environment.yml`, name it as your desired environment's name and substitute:
+1. Make a copy of `facebook-ingest/env/example-environment.yml`, name it as your desired environment's name and substitute:
    1. `000000000000` with your AWS account id.
    2. `example-data-s3-bucket-name` for your data lake AWS S3 bucket.
    3. `example-code-s3-bucket-name` for your code AWS S3 bucket.
-2. Substitute `eu-west-1` with your AWS region in `facebook-ingest/serverless.yml`, `facebook-ingest/facebook_ingest.py` and `facebook-ingest/partials/resources.yml`.
-3. Substitute `000000000000` with your AWS Account ID in `facebook-ingest/partials/resources.yml`.
-4. Make a secret on AWS Secrets Manager for your Facebook access token and save its name on the `secret_name` field in your environment files located in `facebook-ingest/env/`.
+   4. `eu-west-1` with your AWS region.
+2. Substitute `000000000000` with your AWS Account ID in `facebook-ingest/partials/resources.yml`.
+3. Make a secret on AWS Secrets Manager for your Facebook access token and save its name on the `secret_name` field in your environment files located in `facebook-ingest/env/`.
    1. For example, we named it `accessToken-appId-appSecret-businessId/facebookApi/ingestion`.
-5. Check and substitute s3 bucket and key as needed on the `wr`, `facebook_sdk` and `pandas` fields in your environment files located in `facebook-ingest/env/`.
-6. Go to the `facebook-ingest` folder: `cd facebook-ingest`.
-7. Install npm dependencies: `npm install`.
-8.  Deploy on AWS with: `sls deploy --stage {stage}`.
+4. Check and substitute s3 bucket and key as needed on the `wr`, `facebook_sdk` and `pandas` fields in your environment files located in `facebook-ingest/env/`.
+5. Go to the `facebook-ingest` folder: `cd facebook-ingest`.
+6. Install npm dependencies: `npm install`.
+7.  Deploy on AWS with: `sls deploy --stage {stage}`.
    1. Substitute `{stage}` with one of the available stages defined as the YAML files in the `facebook-ingest/env/` directory.
 
 ## Usage
