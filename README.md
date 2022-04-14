@@ -64,6 +64,8 @@ By default, the glue job is triggered by the following rules:
 - Every 55 minutes, between 6 and 20, from Mondays to Fridays
 - At 10, on Saturdays and Sundays
 
+You can change the rules on the `Glue.triggers` YAML property in the `facebook-ingest/serverless.yml` file.
+
 ## Contributing
 
 Feel free to contribute! Create an issue and submit PRs (pull requests) in the repository. Contributing to this project assumes a certain level of familiarity with AWS, the Python language and concepts such as virtualenvs, pip, modules, etc.
