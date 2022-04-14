@@ -8,8 +8,7 @@ provider:
     name: ${self:custom.env.code_bucket}
     maxPreviousDeploymentArtifacts: 5
 
-custom:
-  env: ${file(./env/${self:provider.stage}.yml)}
+custom: ${file(./partials/custom.yml)}
 
 Glue:
   bucketDeploy: ${self:custom.env.code_bucket}
@@ -29,7 +28,7 @@ Glue:
       Timeout: 45
       DefaultArguments:
         class: GlueApp
-        extraPyFiles: ${self:custom.env.whl_wr},${self:custom.env.whl_facebook_sdk}
+        extraPyFiles: ${self:custom.whl_wr},${self:custom.whl_facebook_sdk}
         customArguments:
           secret_name: ${self:custom.env.secret_name}
           data_bucket: ${self:custom.env.data_bucket}

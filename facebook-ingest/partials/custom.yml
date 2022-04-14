@@ -1,0 +1,4 @@
+env: ${file(./env/${self:provider.stage}.yml)}
+  
+whl_wr: s3://${self:custom.env.code_bucket}/glue-code/scripts/facebook_ingestion/libraries/awswrangler-2.12.1-py3-none-any.whl
+whl_facebook_sdk: s3://${self:custom.env.code_bucket}/glue-code/scripts/facebook_ingestion/libraries/facebook_business-12.0.0-py3-none-any.whl
