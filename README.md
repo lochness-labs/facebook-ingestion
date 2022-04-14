@@ -1,6 +1,6 @@
 # Facebook Ads Ingestion for Data Lakes
 
-This AWS Glue jobs uses the Facebook Marketing API to retrieve `ad`, `ad_set`, `campaign`, `ad_image`, and `ad_insights` (also known as facebook's `extractions`) data for all advertising account under your business account on Facebook.
+This AWS Glue job uses the Facebook Marketing API to retrieve `ad`, `ad_set`, `campaign`, `ad_image`, and `ad_insights` (also known as facebook's `extractions`) data for all advertising account under your business account on Facebook.
 For each API object, the job retrieves the last execution time, and gets all updated/new data since then. It then proceeds to store data with AWS Data Wrangler which sinks the data in S3 and generates a validation metadata file.
 
 The AWS Glue script is of type `pythonshell`.
