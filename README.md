@@ -45,6 +45,8 @@ The name of the files corresponds to the environment names. For example: substit
 4. Load required libraries:
    1. Check and substitute s3 bucket and key as needed on the `wr`, `facebook_sdk` and `pandas` fields in your environment files located in `facebook-ingest/env/`.
    2. Upload the libraries using the `s3_glue_libs_upload.sh` utility.
+      1. `source s3_glue_libs_upload.sh PROFILE_NAME="{your-aws-profile-name}" LOCAL_FILE_PATH="./wheel" BUCKET="{your-s3-code-bucket-name}" PREFIX="glue-code/scripts/facebook_ingestion_{your-environment}/libraries/"`
+
 5. Install npm dependencies: `npm install`.
 6. Deploy on AWS with: `sls deploy --stage {stage}`.
    1. Substitute `{stage}` with one of the available stages defined as the YAML files in the `facebook-ingest/env/` directory.
