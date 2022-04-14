@@ -39,7 +39,7 @@ The name of the files corresponds to the environment names. For example: substit
    2. `example-data-s3-bucket-name` for your data lake AWS S3 bucket.
    3. `example-code-s3-bucket-name` for your code AWS S3 bucket.
    4. `eu-west-1` with your AWS region.
-2. Substitute `000000000000` with your AWS Account ID in `facebook-ingest/partials/resources.yml`.
+2. Substitute `000000000000` with your AWS Account ID in `facebook-ingest/serverless-parts/resources.yml`.
 3. Make a secret on AWS Secrets Manager for your Facebook access token and save its name on the `secret_name` field in your environment files located in `facebook-ingest/env/`.
    1. For example, we named it `accessToken-appId-appSecret-businessId/facebookApi/ingestion`.
 4. Check and substitute s3 bucket and key as needed on the `wr`, `facebook_sdk` and `pandas` fields in your environment files located in `facebook-ingest/env/`.
@@ -48,7 +48,7 @@ The name of the files corresponds to the environment names. For example: substit
 7.  Deploy on AWS with: `sls deploy --stage {stage}`.
    1. Substitute `{stage}` with one of the available stages defined as the YAML files in the `facebook-ingest/env/` directory.
 
-**Note:** You can set `execute_libraries_upload` as `False` in `facebook-ingest/partials/custom.yml` to speed up the deployment if there are no updates to the libraries.
+**Note:** You can set `execute_libraries_upload` as `False` in `facebook-ingest/serverless-parts/custom.yml` to speed up the deployment if there are no updates to the libraries.
 
 ## Usage
 

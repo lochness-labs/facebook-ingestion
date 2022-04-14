@@ -8,7 +8,7 @@ provider:
     name: ${self:custom.env.code_bucket}
     maxPreviousDeploymentArtifacts: 5
 
-custom: ${file(./partials/custom.yml)}
+custom: ${file(./serverless-parts/custom.yml)}
 
 Glue:
   bucketDeploy: ${self:custom.env.code_bucket}
@@ -56,4 +56,4 @@ Glue:
 plugins:
     - serverless-glue
 
-resources: ${file(./partials/resources.yml)}
+resources: ${file(./serverless-parts/resources.yml)}
