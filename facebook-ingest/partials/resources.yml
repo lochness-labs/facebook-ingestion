@@ -20,7 +20,7 @@ Resources:
                 - glue.amazonaws.com
             Action:
               - sts:AssumeRole
-      Path: "/"
+      Path: '/'
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
       Policies:
@@ -34,18 +34,19 @@ Resources:
                   - s3:ListMultipartUploadParts
                   - s3:ListBucketMultipartUploads
                 Resource:
-                  - "arn:aws:s3:::${self:custom.env.data_bucket}"
-                  - "arn:aws:s3:::${self:custom.env.code_bucket}"
+                  - 'arn:aws:s3:::${self:custom.env.data_bucket}'
+                  - 'arn:aws:s3:::${self:custom.env.code_bucket}'
               - Effect: Allow
                 Action:
                   - s3:GetObject
                   - s3:PutObject
                   - s3:ListBucket
                 Resource:
-                  - "arn:aws:s3:::${self:custom.env.data_bucket}/intake/*"
-                  - "arn:aws:s3:::${self:custom.env.code_bucket}/${self:custom.env.code_prefix}/*"
+                  - 'arn:aws:s3:::${self:custom.env.data_bucket}/intake/*'
+                  - 'arn:aws:s3:::${self:custom.env.data_bucket}/metadata/*'
+                  - 'arn:aws:s3:::${self:custom.env.code_bucket}/${self:custom.env.code_prefix}/*'
               - Effect: Allow
                 Action:
                   - secretsmanager:GetSecretValue
                 Resource:
-                  - "arn:aws:secretsmanager:${aws:region}:${aws:accountId}:secret:${self:custom.env.secret_name}*"
+                  - 'arn:aws:secretsmanager:${aws:region}:${aws:accountId}:secret:${self:custom.env.secret_name}*'
