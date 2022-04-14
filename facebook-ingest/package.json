@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/lochness-labs/facebook-ingestion#readme",
   "dependencies": {
+    "serverless": "^3.13.0",
     "serverless-glue": "^2.8.0"
   }
 }

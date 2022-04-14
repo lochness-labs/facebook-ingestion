@@ -16,6 +16,7 @@
         "refactor",
         "style",
         "test",
-        "chore"
+        "chore",
+        "npm"
     ]
 }
