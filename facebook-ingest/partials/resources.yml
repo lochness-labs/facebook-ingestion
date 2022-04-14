@@ -7,7 +7,6 @@ Resources:
       DatabaseInput:
         Name: raw
 
-
   # Glue Role for facebook-ingestion
   GlueRole:
     Type: AWS::IAM::Role
