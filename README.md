@@ -1,13 +1,13 @@
 # Facebook Ads Ingestion for Data Lakes
 
-This glue jobs uses the Facebook Marketing API to retrieve `ad`, `ad_set`, `campaign`, `ad_image`, and `ad_insights` (also known as facebook's `extractions`) data for all advertising account under your business account on Facebook. 
-For each API object, the job retrieves the last execution time, and gets all updated/new data since then. It then proceeds to store data, metadata, and it runs the crawler to add new data to the catalog.
+This AWS Glue jobs uses the Facebook Marketing API to retrieve `ad`, `ad_set`, `campaign`, `ad_image`, and `ad_insights` (also known as facebook's `extractions`) data for all advertising account under your business account on Facebook.
+For each API object, the job retrieves the last execution time, and gets all updated/new data since then. It then proceeds to store data with AWS Data Wrangler which sinks the data in S3 and generates a validation metadata file.
 
-The glue script is of type `pythonshell`.
+The AWS Glue script is of type `pythonshell`.
 
 The infrastructure is described (IaC) and deployed with Serverless Framework (https://www.serverless.com/framework/).
 
-The infrastructure was developed on the AWS cloud platform.
+The infrastructure has been developed on the AWS Cloud Platform.
 
 ## Checklist
 
@@ -18,7 +18,7 @@ The infrastructure was developed on the AWS cloud platform.
 
 - Node.js and NPM: https://nodejs.org/en/
 - Serverless Framework: https://www.serverless.com/framework/docs/getting-started/
-- virtualenv: 
+- virtualenv:
 
 ## Environments setup
 
@@ -71,7 +71,7 @@ By default, the glue job is triggered by the following rules:
 
 ## Contributing
 
-Feel free to contribute! Create an issue and submit PRs (pull requests) in the repository. Contributing to this project assumes a certain level of familiarity with the Python language and concepts such as virtualenvs, pip, modules, etc.
+Feel free to contribute! Create an issue and submit PRs (pull requests) in the repository. Contributing to this project assumes a certain level of familiarity with AWS, the Python language and concepts such as virtualenvs, pip, modules, etc.
 
 Try to keep commits inside the rules of https://www.conventionalcommits.org/. The `sailr.json` file is used for configuration of the commit hook, as per: https://github.com/craicoverflow/sailr.
 
