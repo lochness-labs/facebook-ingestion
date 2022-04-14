@@ -38,20 +38,22 @@ The name of the files corresponds to the environment names. For example: substit
    1. `000000000000` with your AWS account id.
    2. `example-data-s3-bucket-name` for your data lake AWS S3 bucket.
    3. `example-code-s3-bucket-name` for your code AWS S3 bucket.
-2. Make a secret on AWS Secrets Manager for your Facebook access token and save its name on the`secret_name` field in your environment files located in `facebook-ingest/env/`.
+2. Substitute `eu-west-1` with your AWS region in `serverless.yml`.
+3. Substitute `eu-west-1` with your AWS region in `facebook_ingest.py`.
+4. Make a secret on AWS Secrets Manager for your Facebook access token and save its name on the`secret_name` field in your environment files located in `facebook-ingest/env/`.
    1. For example, we named it `accessToken-appId-appSecret-businessId/facebookApi/ingestion`.
-3. Make a IAM role for the Glue job, that includes all the required permissions as a policy.
+5. Make a IAM role for the Glue job, that includes all the required permissions as a policy.
    1. You can find an example of the role and policy in `facebook-ingest/partials/resources.yml`.
       1. Replace `000000000000` with your AWS account id.
       2. Replace `eu-west-1` with your AWS region.
    2. Substitute its ARN in the `facebook-ingest/env/dev.yml` file (`role_arn: arn:aws:iam::000000000000:role/example_glue_role`).
-4. Load required libraries:
+6. Load required libraries:
    1. Check and substitute s3 bucket and key as needed on the `wr`, `facebook_sdk` and `pandas` fields in your environment files located in `facebook-ingest/env/`.
    2. Upload the libraries using the `s3_glue_libs_upload.sh` utility.
       1. `source s3_glue_libs_upload.sh PROFILE_NAME="{your-aws-profile-name}" LOCAL_FILE_PATH="./wheel" BUCKET="{your-s3-code-bucket-name}" PREFIX="glue-code/scripts/facebook_ingestion_{your-environment}/libraries/"`
-5. Go to `facebook-ingest` folder: `cd facebook-ingest`.
-6. Install npm dependencies: `npm install`.
-7. Deploy on AWS with: `sls deploy --stage {stage}`.
+7. Go to `facebook-ingest` folder: `cd facebook-ingest`.
+8. Install npm dependencies: `npm install`.
+9.  Deploy on AWS with: `sls deploy --stage {stage}`.
    1. Substitute `{stage}` with one of the available stages defined as the YAML files in the `facebook-ingest/env/` directory.
 
 ## Usage
