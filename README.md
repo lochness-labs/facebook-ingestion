@@ -11,8 +11,8 @@ The infrastructure has been developed on the AWS Cloud Platform.
 
 ## Checklist
 
-- [ ] TODO: Make example IAM policy that includes all the required permissions, then test it.
 - [ ] TODO: Test deployment instructions (and add missing instructions if needed).
+- [ ] TODO: Test job run.
 
 ## Requirements
 
