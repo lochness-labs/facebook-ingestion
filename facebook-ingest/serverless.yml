@@ -5,7 +5,7 @@ provider:
   name: aws
   region: eu-west-1
   stage: ${opt:stage}
-  deploymentBucket: 
+  deploymentBucket:
     name: ${self:custom.env.code_bucket}
     maxPreviousDeploymentArtifacts: 5
 
@@ -17,7 +17,7 @@ Glue:
   s3Prefix: ${self:custom.env.code_prefix}/${self:custom.env.job_name}_${self:provider.stage}/
   tempDirBucket: ${self:custom.env.code_bucket}
   tempDirS3Prefix: ${self:custom.env.code_prefix}/temp
-  
+
   jobs:
     - name: ${self:custom.env.job_name}_${self:provider.stage}
       scriptPath: ./facebook_ingest.py
@@ -30,7 +30,7 @@ Glue:
       Timeout: 45
       DefaultArguments:
         class: GlueApp
-        extraPyFiles: ${self:custom.env.wr},${self:custom.env.facebook_sdk},${self:custom.env.pandas}
+        extraPyFiles: ${self:custom.env.whl_wr},${self:custom.env.whl_facebook_sdk}
         customArguments:
           secret_name: ${self:custom.env.secret_name}
           data_bucket: ${self:custom.env.data_bucket}
@@ -40,20 +40,20 @@ Glue:
           s3_prefix: ${self:custom.env.code_prefix}/${self:custom.env.job_name}_${self:provider.stage}/libraries/
           execute_upload: False
   triggers:
-    - name: Weekends Facebook Ingestion 
+    - name: Weekends Facebook Ingestion
       schedule: 0 10 ? * SAT-SUN *
       actions:
         - name: ${self:custom.env.job_name}_${self:provider.stage}
-          args: 
+          args:
             secret_name: ${self:custom.env.secret_name}
-            data_bucket: ${self:custom.env.data_bucket}  
+            data_bucket: ${self:custom.env.data_bucket}
     - name: Weekdays Facebook Ingestion
       schedule: 0 7-19/3 ? * MON-FRI *
       actions:
         - name: ${self:custom.env.job_name}_${self:provider.stage}
-          args: 
+          args:
             secret_name: ${self:custom.env.secret_name}
-            data_bucket: ${self:custom.env.data_bucket}  
+            data_bucket: ${self:custom.env.data_bucket}
 
 plugins:
     - serverless-glue
