@@ -24,7 +24,7 @@ Glue:
       tempDir: true
       type: pythonshell
       glueVersion: python3-1.0
-      role: ${self:custom.env.role_arn}
+      role: !Ref GlueRole
       MaxConcurrentRuns: 1
       MaxRetries: 0
       Timeout: 45
