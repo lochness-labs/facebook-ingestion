@@ -68,7 +68,7 @@ By default, the glue job is triggered by the following rules:
 
 Feel free to contribute! Create an issue and submit PRs (pull requests) in the repository. Contributing to this project assumes a certain level of familiarity with the Python language and concepts such as virtualenvs, pip, modules, etc.
 
-Try to keep commits inside the rules of https://www.conventionalcommits.org/
+Try to keep commits inside the rules of https://www.conventionalcommits.org/. The `sailr.json` file is used for configuration of the commit hook, as per: https://github.com/craicoverflow/sailr.
 
 ## License
 
@@ -86,6 +86,7 @@ Many thanks to the mantainers of the open source libraries used in this project:
 - AWS Data Wrangler: https://github.com/awslabs/aws-data-wrangler
 - Boto3 (AWS SDK for Python): https://github.com/boto/boto3
 - Facebook Business SDK for Python: https://github.com/facebook/facebook-python-business-sdk
+- Sailr (conventional commits git hooke): https://github.com/craicoverflow/sailr/
 
 Contact us if we missed an acknowledgement to your library.
 
