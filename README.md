@@ -34,7 +34,7 @@ The name of the files corresponds to the environment names. For example: substit
 
 ## Deployment instructions
 
-1. Open `env/dev.yaml` file and substitute:
+1. Make a copy of `env/example-environment.yaml`, name it as your desired environment's name and substitute:
    1. `000000000000` with your AWS account id.
    2. `example-data-s3-bucket-name` for your data lake AWS S3 bucket.
    3. `example-code-s3-bucket-name` for your code AWS S3 bucket.
@@ -49,7 +49,7 @@ The name of the files corresponds to the environment names. For example: substit
 6. Deploy on AWS with: `sls deploy --stage {stage}`.
    1. Substitute `{stage}` with one of the available stages defined as the YAML files in the `facebook-ingest/env/` directory.
 
-## Trigger Schedule:
+## Trigger Schedule
 
 By default, the glue job is triggered by the following rules:
 
