@@ -2,7 +2,7 @@ service: facebook-ingestion
 
 provider:
   name: aws
-  region: eu-west-1
+  region: ${self:custom.env.aws_region_name}
   stage: ${opt:stage}
   deploymentBucket:
     name: ${self:custom.env.code_bucket}

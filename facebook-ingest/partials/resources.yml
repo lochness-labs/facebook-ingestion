@@ -37,4 +37,4 @@ Resources:
                 Action:
                   secretsmanager:GetSecretValue
                 Resource:
-                  - "arn:aws:secretsmanager:eu-west-1:000000000000:secret:${self:custom.env.secret_name}"
+                  - "arn:aws:secretsmanager:${aws:accountId}:${aws:accountId}:secret:${self:custom.env.secret_name}"

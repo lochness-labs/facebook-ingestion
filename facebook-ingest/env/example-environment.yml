@@ -6,3 +6,4 @@ whl_wr: s3://example-code-s3-bucket-name/glue-code/scripts/facebook_ingestion/li
 whl_facebook_sdk: s3://example-code-s3-bucket-name/glue-code/scripts/facebook_ingestion/libraries/facebook_business-12.0.0-py3-none-any.whl
 secret_name: accessToken-appId-appSecret-businessId/facebookApi/ingestion
 data_bucket: example-data-s3-bucket-name
+aws_region_name: eu-west-1
