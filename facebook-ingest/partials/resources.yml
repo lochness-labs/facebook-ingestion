@@ -26,6 +26,7 @@ Resources:
                   - s3:ListBucketMultipartUploads
                 Resource: 
                   - "arn:aws:s3:::${self:custom.env.data_bucket}"
+                  - "arn:aws:s3:::${self:custom.env.code_bucket}"
               - Effect: Allow
                 Action:
                   - s3:GetObject
@@ -33,6 +34,7 @@ Resources:
                   - s3:ListBucket
                 Resource: 
                   - "arn:aws:s3:::${self:custom.env.data_bucket}/intake/*"
+                  - "arn:aws:s3:::${self:custom.env.code_bucket}/${self:custom.env.code_prefix}/*"
               - Effect: Allow
                 Action:
                   secretsmanager:GetSecretValue
