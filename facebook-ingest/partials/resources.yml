@@ -18,7 +18,7 @@ Resources:
           - Effect: Allow
             Principal:
               Service:
-              - glue.amazonaws.com
+                - glue.amazonaws.com
             Action:
               - sts:AssumeRole
       Path: "/"
@@ -34,7 +34,7 @@ Resources:
                   - s3:AbortMultipartUpload
                   - s3:ListMultipartUploadParts
                   - s3:ListBucketMultipartUploads
-                Resource: 
+                Resource:
                   - "arn:aws:s3:::${self:custom.env.data_bucket}"
                   - "arn:aws:s3:::${self:custom.env.code_bucket}"
               - Effect: Allow
@@ -42,11 +42,11 @@ Resources:
                   - s3:GetObject
                   - s3:PutObject
                   - s3:ListBucket
-                Resource: 
+                Resource:
                   - "arn:aws:s3:::${self:custom.env.data_bucket}/intake/*"
                   - "arn:aws:s3:::${self:custom.env.code_bucket}/${self:custom.env.code_prefix}/*"
               - Effect: Allow
                 Action:
-                  secretsmanager:GetSecretValue
+                  - secretsmanager:GetSecretValue
                 Resource:
-                  - "arn:aws:secretsmanager:${aws:accountId}:${aws:accountId}:secret:${self:custom.env.secret_name}"
+                  - "arn:aws:secretsmanager:${aws:region}:${aws:accountId}:secret:${self:custom.env.secret_name}"
