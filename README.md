@@ -68,6 +68,8 @@ By default, the glue job is triggered by the following rules:
 
 Feel free to contribute! Create an issue and submit PRs (pull requests) in the repository. Contributing to this project assumes a certain level of familiarity with the Python language and concepts such as virtualenvs, pip, modules, etc.
 
+Try to keep commits inside the rules of https://www.conventionalcommits.org/
+
 ## License
 
 This project is licensed under the **Apache License 2.0**.
