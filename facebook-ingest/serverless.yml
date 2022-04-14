@@ -18,11 +18,11 @@ Glue:
 
   jobs:
     - name: ${self:custom.env.job_name}_${self:provider.stage}
-      scriptPath: ./facebook_ingest.py
+      scriptPath: ./src/facebook_ingest.py
       tempDir: true
       type: pythonshell
       glueVersion: python3-1.0
-      role: !Ref GlueRole
+      role: { Fn::GetAtt: [ GlueRole, Arn ] }
       MaxConcurrentRuns: 1
       MaxRetries: 0
       Timeout: 45
@@ -56,5 +56,4 @@ Glue:
 plugins:
     - serverless-glue
 
-# AWS resources
 resources: ${file(./partials/resources.yml)}
