@@ -38,9 +38,9 @@ The name of the files corresponds to the environment names. For example: substit
    1. `000000000000` with your AWS account id.
    2. `example-data-s3-bucket-name` for your data lake AWS S3 bucket.
    3. `example-code-s3-bucket-name` for your code AWS S3 bucket.
-2. Substitute `eu-west-1` with your AWS region in `serverless.yml`.
-3. Substitute `eu-west-1` with your AWS region in `facebook_ingest.py`.
-4. Make a secret on AWS Secrets Manager for your Facebook access token and save its name on the`secret_name` field in your environment files located in `facebook-ingest/env/`.
+2. Substitute `eu-west-1` with your AWS region in `facebook-ingest/serverless.yml`, `facebook-ingest/facebook_ingest.py` and `facebook-ingest/partials/resources.yml`.
+3. Substitute `000000000000` with your AWS Account ID in `facebook-ingest/partials/resources.yml`.
+4. Make a secret on AWS Secrets Manager for your Facebook access token and save its name on the `secret_name` field in your environment files located in `facebook-ingest/env/`.
    1. For example, we named it `accessToken-appId-appSecret-businessId/facebookApi/ingestion`.
 5. Check and substitute s3 bucket and key as needed on the `wr`, `facebook_sdk` and `pandas` fields in your environment files located in `facebook-ingest/env/`.
 6. Go to the `facebook-ingest` folder: `cd facebook-ingest`.
