@@ -11,7 +11,6 @@ The infrastructure has been developed on the AWS Cloud Platform.
 
 ## Checklist
 
-- [ ] TODO: Test deployment instructions (and add missing instructions if needed).
 - [ ] TODO: Test job run.
 
 ## Requirements
