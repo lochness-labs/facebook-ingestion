@@ -1,4 +1,14 @@
 Resources:
+  # Make Glue database
+  GlueDatabase:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: ${aws:accountId}
+      DatabaseInput:
+        Name: raw
+
+
+  # Glue Role for facebook-ingestion
   GlueRole:
     Type: AWS::IAM::Role
     Properties:
