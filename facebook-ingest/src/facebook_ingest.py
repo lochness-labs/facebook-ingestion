@@ -526,8 +526,13 @@ for i, object_type in enumerate(object_type_list):
     logger.info(f"Querying {object_type}, execution_time: {EXECUTION_TIME}")
 
     # Get last execution time for object type
-    latest_epoch = get_latest_epoch(s3_client=S3_CLIENT, bucket_name=DATA_BUCKET, zone=ZONE,
+    try:
+        latest_epoch = get_latest_epoch(s3_client=S3_CLIENT, bucket_name=DATA_BUCKET, zone=ZONE,
                                     tier=TIER, source=SOURCE, extraction=object_type)
+    except KeyError as e:
+        latest_epoc = "2022-04-14 00:00:00"
+        logger.info(f"#: Get latest_epoc: {latest_epoc}")
+        latest_epoch= str(int(datetime.datetime.strptime(latest_epoc, '%Y-%m-%d %H:%M:%S').timestamp()))
 
     # Get parameters to be passed to the API
     if object_type == 'ad_insights':
