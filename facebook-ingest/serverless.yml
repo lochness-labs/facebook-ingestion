@@ -1,5 +1,4 @@
 service: facebook-ingestion
-frameworkVersion: '2'
 
 provider:
   name: aws
