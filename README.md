@@ -1,4 +1,4 @@
-# Facebook Ingestion for Data Lakes
+# Facebook Ads Ingestion for Data Lakes
 
 This glue jobs uses the Facebook Marketing API to retrieve `ad`, `ad_set`, `campaign`, `ad_image`, and `ad_insights` (also known as facebook's `extractions`) data for all advertising account under your business account on Facebook. 
 For each API object, the job retrieves the last execution time, and gets all updated/new data since then. It then proceeds to store data, metadata, and it runs the crawler to add new data to the catalog.
@@ -46,10 +46,16 @@ The name of the files corresponds to the environment names. For example: substit
    1. Check and substitute s3 bucket and key as needed on the `wr`, `facebook_sdk` and `pandas` fields in your environment files located in `facebook-ingest/env/`.
    2. Upload the libraries using the `s3_glue_libs_upload.sh` utility.
       1. `source s3_glue_libs_upload.sh PROFILE_NAME="{your-aws-profile-name}" LOCAL_FILE_PATH="./wheel" BUCKET="{your-s3-code-bucket-name}" PREFIX="glue-code/scripts/facebook_ingestion_{your-environment}/libraries/"`
-
-5. Install npm dependencies: `npm install`.
-6. Deploy on AWS with: `sls deploy --stage {stage}`.
+5. Go to `facebook-ingest` folder: `cd facebook-ingest`.
+6. Install npm dependencies: `npm install`.
+7. Deploy on AWS with: `sls deploy --stage {stage}`.
    1. Substitute `{stage}` with one of the available stages defined as the YAML files in the `facebook-ingest/env/` directory.
+
+## Usage
+
+You can start the Glue job manually from the AWS console or using any of the AWS allowed methods such as AWS CLI, AWS SDKs, etc...
+
+There is also a triggering schedule enabled by default, described below:
 
 ## Trigger Schedule
 
