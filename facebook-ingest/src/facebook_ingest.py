@@ -531,7 +531,7 @@ for i, object_type in enumerate(object_type_list):
                                     tier=TIER, source=SOURCE, extraction=object_type)
     except KeyError as e:
         latest_epoc = "2022-04-14 00:00:00"
-        logger.info(f"#: Get latest_epoc: {latest_epoc}")
+        logger.info(f"#: Get latest_epoch: {latest_epoc}")
         latest_epoch= str(int(datetime.datetime.strptime(latest_epoc, '%Y-%m-%d %H:%M:%S').timestamp()))
 
     # Get parameters to be passed to the API
