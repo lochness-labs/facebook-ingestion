@@ -57,3 +57,6 @@ Glue:
 
 plugins:
     - serverless-glue
+
+# AWS resources
+resources: ${file(./partials/resources.yml)}
