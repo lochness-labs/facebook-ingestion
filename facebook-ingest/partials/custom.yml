@@ -2,3 +2,4 @@ env: ${file(./env/${self:provider.stage}.yml)}
   
 whl_wr: s3://${self:custom.env.code_bucket}/${self:custom.env.code_prefix}/facebook_ingestion/libraries/awswrangler-2.12.1-py3-none-any.whl
 whl_facebook_sdk: s3://${self:custom.env.code_bucket}/${self:custom.env.code_prefix}/facebook_ingestion/libraries/facebook_business-12.0.0-py3-none-any.whl
+execute_libraries_upload: True # => You can set it as `False` to speed up the deployment if there are no updates to the libraries

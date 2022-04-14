@@ -49,6 +49,8 @@ The name of the files corresponds to the environment names. For example: substit
 7.  Deploy on AWS with: `sls deploy --stage {stage}`.
    1. Substitute `{stage}` with one of the available stages defined as the YAML files in the `facebook-ingest/env/` directory.
 
+**Note:** You can set `execute_libraries_upload` as `False` in `facebook-ingest/partials/custom.yml` to speed up the deployment if there are no updates to the libraries.
+
 ## Usage
 
 You can start the Glue job manually from the AWS console or using any of the AWS allowed methods such as AWS CLI, AWS SDKs, etc...
