@@ -35,7 +35,6 @@ args = getResolvedOptions(sys.argv, ['secret_name',
 
 # Set AWS constants and clients
 S3_CLIENT = boto3.client('s3')
-GLUE_CLIENT = boto3.client('glue')
 SECRET_MANAGER_CLIENT = boto3.client('secretsmanager', region_name='eu-west-1')
 
 SECRET_NAME = args['secret_name']
