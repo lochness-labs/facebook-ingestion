@@ -24,7 +24,7 @@ The infrastructure was developed on the AWS cloud platform.
 
 The `facebook-ingest/env/` contains the environment configuration files, one for each of your AWS environments.
 
-The name of the files corresponds to the environment names. For example: substitute `example_enviroment.yaml` with `dev.yaml` for a development environment.
+The name of the files corresponds to the environment names. For example: substitute `example_enviroment.yml` with `dev.yml` for a development environment.
 
 ## Development environment setup
 
@@ -34,14 +34,14 @@ The name of the files corresponds to the environment names. For example: substit
 
 ## Deployment instructions
 
-1. Make a copy of `env/example-environment.yaml`, name it as your desired environment's name and substitute:
+1. Make a copy of `env/example-environment.yml`, name it as your desired environment's name and substitute:
    1. `000000000000` with your AWS account id.
    2. `example-data-s3-bucket-name` for your data lake AWS S3 bucket.
    3. `example-code-s3-bucket-name` for your code AWS S3 bucket.
 2. Make a secret on AWS Secrets Manager for your Facebook access token and save its name on the`secret_name` field in your environment files located in `facebook-ingest/env/`.
    1. For example, we named it `accessToken-appId-appSecret-businessId/facebookApi/ingestion`.
-3. Make a IAM role for the Glue job, that includes all the required permissions (as per the example policy **that is coming soon, TODO**)
-   1. Substitute its ARN in the `facebook-ingest/env/dev.yaml` file (`role_arn: arn:aws:iam::000000000000:role/example_glue_role`).
+3. Make a IAM role for the Glue job, that includes all the required permissions as a policy (you can find an example of the policy in `job-policy.json`)
+   1. Substitute its ARN in the `facebook-ingest/env/dev.yml` file (`role_arn: arn:aws:iam::000000000000:role/example_glue_role`).
 4. Load required libraries:
    1. Check and substitute s3 bucket and key as needed on the `wr`, `facebook_sdk` and `pandas` fields in your environment files located in `facebook-ingest/env/`.
    2. Upload the libraries using the `s3_glue_libs_upload.sh` utility.

@@ -10,7 +10,7 @@ provider:
     maxPreviousDeploymentArtifacts: 5
 
 custom:
-  env: ${file(./env/${self:provider.stage}.yaml)}
+  env: ${file(./env/${self:provider.stage}.yml)}
 
 Glue:
   bucketDeploy: ${self:custom.env.code_bucket}
