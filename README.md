@@ -34,6 +34,7 @@ The name of the files corresponds to the environment names. For example: substit
 
 ## Deployment instructions
 
+1. You need 2 AWS S3 buckets, one for the glue code and one as the Data Lake, if you have them, just keep in mind the names for the nexts steps, otherwise create the buckets on S3.
 1. Make a copy of `facebook-ingest/env/example-environment.yml`, name it as your desired environment's name and substitute:
    1. `000000000000` with your AWS account id.
    2. `example-data-s3-bucket-name` for your data lake AWS S3 bucket.
