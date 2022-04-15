@@ -1,37 +1,34 @@
 # Facebook Ads Ingestion for Data Lakes
 
-This AWS Glue job uses the Facebook Marketing API to retrieve `ad`, `ad_set`, `campaign`, `ad_image`, and `ad_insights` (also known as facebook's `extractions`) data for all advertising account under your business account on Facebook.
-For each API object, the job retrieves the last execution time, and gets all updated/new data since then. It then proceeds to store data with AWS Data Wrangler which sinks the data in S3 and generates a validation metadata file.
+A Data Lake ingestion connector for the Facebook Ads APIs
 
-The AWS Glue script is of type `pythonshell`.
+The main component of the repository is an AWS Glue job, of type `pythonshell`, which uses the Facebook Marketing API to retrieve `ad`, `ad_set`, `campaign`, `ad_image`, and `ad_insights` (also known as facebook's `extractions`) data for all advertising account under your business account on Facebook. For each API object, the job retrieves the last execution time, and gets all updated/new data since then. It then proceeds to store data with AWS Data Wrangler which sinks the data in S3 and generates a validation metadata file. The glue job is deployed by the Serverless Framework Stack and the script is located here: `facebook-ingest/src/facebook_ingest.py`.
 
-The infrastructure is described (IaC) and deployed with Serverless Framework (https://www.serverless.com/framework/).
+The infrastructure is described (IaC) and deployed with Serverless Framework (https://www.serverless.com/framework/). The entry point is `facebook-ingest/serverless.yml`.
 
 The infrastructure has been developed on the AWS Cloud Platform.
 
-## Checklist
+## Getting Started
 
-- [ ] TODO: Test job run.
-
-## Requirements
+### Requirements
 
 - Node.js and NPM: https://nodejs.org/en/download/
 - Serverless Framework: https://www.serverless.com/framework/docs/getting-started/
 - virtualenv: https://virtualenv.pypa.io/en/latest/installation.html
 
-## Environments setup
+### Environments setup
 
 The `facebook-ingest/env/` contains the environment configuration files, one for each of your AWS environments.
 
 The name of the files corresponds to the environment names. For example: substitute `example_enviroment.yml` with `dev.yml` for a development environment.
 
-## Development environment setup
+### Development environment setup
 
 1. Create virtualenv: `virtualenv -p python3 venv`
 2. Activate virtualenv: `source venv/bin/activate`
 3. Install requirements: `pip install -r requirements.txt`
 
-## Deployment instructions
+### Deployment instructions
 
 1. You need 2 AWS S3 buckets, one for the glue code and one as the Data Lake, if you have them, just keep in mind the names for the nexts steps, otherwise create the buckets on S3.
 1. Make a copy of `facebook-ingest/env/example-environment.yml`, name it as your desired environment's name and substitute:
