@@ -14,6 +14,10 @@ The infrastructure has been developed on the AWS Cloud Platform.
 
 - Node.js and NPM: https://nodejs.org/en/download/
 - Serverless Framework: https://www.serverless.com/framework/docs/getting-started/
+
+#### For local development only
+
+- Python: https://www.python.org/downloads/
 - virtualenv: https://virtualenv.pypa.io/en/latest/installation.html
 
 ### Environments setup
