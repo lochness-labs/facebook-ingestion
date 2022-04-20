@@ -1,4 +1,18 @@
 Resources:
+
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: SNS Topic
+      TopicName: ${self:provider.stage}-${self:service}-Error
+
+  SNSSubscription1:
+    Type: AWS::SNS::Subscription
+    Properties:
+        Endpoint: ${self:custom.subscription_endpoint_01}
+        Protocol: email
+        TopicArn: {"Ref": "SNSTopic"}
+
   # Make Glue database
   GlueDatabase:
     Type: AWS::Glue::Database
