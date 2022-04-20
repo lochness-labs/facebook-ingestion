@@ -1,0 +1,27 @@
+role:
+  statements:
+    - Effect: Allow
+      Action:
+        - s3:Get*
+        - s3:List*
+        - s3:Put*
+        - s3:DeleteObject
+        - s3:GetBucketNotification
+        - s3:PutBucketNotification
+      Resource:
+        - arn:aws:s3:::${self:custom.env.data_bucket}
+        - arn:aws:s3:::${self:custom.env.data_bucket}/*
+        - arn:aws:s3:::${self:custom.env.code_bucket}
+        - arn:aws:s3:::${self:custom.env.code_bucket}/*
+
+    - Effect: "Allow"
+      Action:
+        - states:StartExecution
+      Resource:
+        - arn:aws:states:${self:provider.region}:${aws:accountId}:stateMachine:${self:provider.stage}-${self:service}
+
+    - Effect: Allow
+      Action:
+        - sns:Publish
+      Resource:
+        - {"Ref": "SNSTopic"}

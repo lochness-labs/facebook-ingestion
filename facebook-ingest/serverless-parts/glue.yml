@@ -1,0 +1,22 @@
+bucketDeploy: ${self:custom.env.code_bucket}
+s3Prefix: ${self:custom.env.code_prefix}/${self:custom.env.job_name}/
+tempDirBucket: ${self:custom.env.code_bucket}
+tempDirS3Prefix: ${self:custom.env.code_prefix}/temp
+
+jobs:
+  - name: ${self:custom.env.job_name}
+    scriptPath: src/glue/facebook_ingest.py
+    tempDir: true
+    type: pythonshell
+    glueVersion: python3-1.0
+    role: { Fn::GetAtt: [ GlueRole, Arn ] }
+    MaxConcurrentRuns: 5
+    MaxRetries: 0
+    Timeout: 45
+    DefaultArguments:
+      extraPyFiles: ${self:custom.glue_args.whl_wr},${self:custom.glue_args.whl_facebook_sdk}
+    SupportFiles:
+      - local_path: src/glue/libraries
+        s3_bucket: ${self:custom.env.code_bucket}
+        s3_prefix: ${self:custom.env.code_prefix}/${self:custom.env.job_name}/libraries/
+        execute_upload: ${self:custom.glue_args.execute_libraries_upload}

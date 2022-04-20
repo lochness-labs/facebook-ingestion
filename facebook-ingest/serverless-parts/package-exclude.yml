@@ -1,0 +1,6 @@
+- node_modules/**
+- venv/**
+- .vscode/**
+- .git/**
+- README.md
+- requirements.txt

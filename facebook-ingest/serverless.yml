@@ -1,59 +1,35 @@
 service: facebook-ingestion
 
+plugins:
+  - serverless-step-functions
+  - serverless-plugin-log-retention
+  - serverless-glue
+  - serverless-s3-sync
+package:
+  exclude:
+    ${file(./serverless-parts/package-exclude.yml)}
+
 provider:
   name: aws
+  runtime: python3.8
   region: ${self:custom.env.aws_region_name}
   stage: ${opt:stage}
   deploymentBucket:
     name: ${self:custom.env.code_bucket}
     maxPreviousDeploymentArtifacts: 5
+  stackTags: ${self:custom.stack_tags}
+  iam: ${file(./serverless-parts/iam.yml)}
 
 custom: ${file(./serverless-parts/custom.yml)}
 
 Glue:
-  bucketDeploy: ${self:custom.env.code_bucket}
-  s3Prefix: ${self:custom.env.code_prefix}/${self:custom.env.job_name}_${self:provider.stage}/
-  tempDirBucket: ${self:custom.env.code_bucket}
-  tempDirS3Prefix: ${self:custom.env.code_prefix}/temp
+  ${file(./serverless-parts/glue.yml)}
 
-  jobs:
-    - name: ${self:custom.env.job_name}_${self:provider.stage}
-      scriptPath: ./src/facebook_ingest.py
-      tempDir: true
-      type: pythonshell
-      glueVersion: python3-1.0
-      role: { Fn::GetAtt: [ GlueRole, Arn ] }
-      MaxConcurrentRuns: 1
-      MaxRetries: 0
-      Timeout: 45
-      DefaultArguments:
-        class: GlueApp
-        extraPyFiles: ${self:custom.whl_wr},${self:custom.whl_facebook_sdk}
-        customArguments:
-          secret_name: ${self:custom.env.secret_name}
-          data_bucket: ${self:custom.env.data_bucket}
-      SupportFiles:
-        - local_path: ../libraries
-          s3_bucket: ${self:custom.env.code_bucket}
-          s3_prefix: ${self:custom.env.code_prefix}/facebook_ingestion/libraries/
-          execute_upload: ${self:custom.execute_libraries_upload}
-  triggers:
-    - name: Weekends Facebook Ingestion
-      schedule: 0 10 ? * SAT-SUN *
-      actions:
-        - name: ${self:custom.env.job_name}_${self:provider.stage}
-          args:
-            secret_name: ${self:custom.env.secret_name}
-            data_bucket: ${self:custom.env.data_bucket}
-    - name: Weekdays Facebook Ingestion
-      schedule: 0 7-19/3 ? * MON-FRI *
-      actions:
-        - name: ${self:custom.env.job_name}_${self:provider.stage}
-          args:
-            secret_name: ${self:custom.env.secret_name}
-            data_bucket: ${self:custom.env.data_bucket}
+resources:
+  ${file(./serverless-parts/resources.yml)}
 
-plugins:
-    - serverless-glue
+functions:
+  ${file(./serverless-parts/functions.yml)}
 
-resources: ${file(./serverless-parts/resources.yml)}
+stepFunctions:
+  ${file(./serverless-parts/stepFunctions.yml)}

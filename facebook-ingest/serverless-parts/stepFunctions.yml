@@ -1,0 +1,10 @@
+stateMachines:
+
+  FacebookAdsStateMachine:
+    name: ${self:provider.stage}-${self:service}
+    definition:
+      ${file(./serverless-parts/stepFunctionsDefinition.yml)}
+    events:
+      - schedule:
+          rate: cron(00 8 * * ? *)
+          enabled: false # Set to true to enable this scheduled event
