@@ -38,6 +38,7 @@ The name of the files corresponds to the environment names. For example: substit
 
 2. Make a copy of `facebook-ingest/env/example-environment.yml`, name it as your desired environment's name (for example `dev.yml` or `prod.yml`) and substitute:
 
+   - `000000000000` with your aws account Id.
    - `example-data-s3-bucket-name` for your data lake AWS S3 bucket.
    - `example-code-s3-bucket-name` for your code AWS S3 bucket.
    - `eu-west-1` with your AWS region.
