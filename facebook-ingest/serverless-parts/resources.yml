@@ -14,12 +14,12 @@ Resources:
         TopicArn: {"Ref": "SNSTopic"}
 
   # Make Glue database
-  GlueDatabase:
+  GlueDatabase: # TODO/FEAT: Move this to a general infrastructure setup repository
     Type: AWS::Glue::Database
     Properties:
       CatalogId: ${aws:accountId}
       DatabaseInput:
-        Name: raw
+        Name: ${self:custom.env.glue_database_name}
 
   # Glue Role for facebook-ingestion
   GlueRole:
