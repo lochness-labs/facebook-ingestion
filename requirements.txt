@@ -2,3 +2,4 @@ awswrangler==2.12.1
 boto3==1.20.13
 facebook-business==12.0.0
 pandas==1.1.5
+requests==2.27.1
