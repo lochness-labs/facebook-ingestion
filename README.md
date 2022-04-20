@@ -34,19 +34,27 @@ The name of the files corresponds to the environment names. For example: substit
 
 ### Deployment instructions
 
-1. You need 2 AWS S3 buckets, one for the glue code and one as the Data Lake, if you have them, just keep in mind the names for the nexts steps, otherwise create the buckets on S3.
-1. Make a copy of `facebook-ingest/env/example-environment.yml`, name it as your desired environment's name and substitute:
-   1. `000000000000` with your AWS account id.
-   2. `example-data-s3-bucket-name` for your data lake AWS S3 bucket.
-   3. `example-code-s3-bucket-name` for your code AWS S3 bucket.
-   4. `eu-west-1` with your AWS region.
-2. Substitute `000000000000` with your AWS Account ID in `facebook-ingest/serverless-parts/resources.yml`.
+1. You need two AWS S3 buckets, one for the glue code and one as the Data Lake, if you have them, just keep in mind the names for the nexts steps, otherwise create the buckets on S3.
+
+2. Make a copy of `facebook-ingest/env/example-environment.yml`, name it as your desired environment's name (for example `dev.yml` or `prod.yml`) and substitute:
+
+   - `example-data-s3-bucket-name` for your data lake AWS S3 bucket.
+   - `example-code-s3-bucket-name` for your code AWS S3 bucket.
+   - `eu-west-1` with your AWS region.
+
 3. Make a secret on AWS Secrets Manager for your Facebook access token and save its name on the `secret_name` field in your environment files located in `facebook-ingest/env/`.
-   1. For example, we named it `accessToken-appId-appSecret-businessId/facebookApi/ingestion`.
-4. Check and substitute s3 bucket and key as needed on the `wr`, `facebook_sdk` and `pandas` fields in your environment files located in `facebook-ingest/env/`.
-5. Go to the `facebook-ingest` folder: `cd facebook-ingest`.
-6. Install npm dependencies: `npm install`.
-7.  Deploy on AWS with: `sls deploy --stage {stage}`.
+
+   - For example, we named it `accessToken-appId-appSecret-businessId/facebookApi/ingestion`.
+
+4. Alternatively to 3, it is possible to use an external API to retrieve a list of secrets
+
+5. Check and substitute s3 bucket and key as needed on the `wr`, `facebook_sdk` and `pandas` fields in your environment files located in `facebook-ingest/env/`.
+
+6. Go to the `facebook-ingest` folder: `cd facebook-ingest`.
+
+7. Install npm dependencies: `npm install`.
+
+8.  Deploy on AWS with: `sls deploy --stage {stage}`.
    1. Substitute `{stage}` with one of the available stages defined as the YAML files in the `facebook-ingest/env/` directory.
 
 **Note:** You can set `execute_libraries_upload` as `False` in `facebook-ingest/serverless-parts/custom.yml` to speed up the deployment if there are no updates to the libraries.
@@ -59,12 +67,7 @@ There is also a triggering schedule enabled by default, described below:
 
 ## Trigger Schedule
 
-By default, the glue job is triggered by the following rules:
-
-- Every 55 minutes, between 6 and 20, from Mondays to Fridays
-- At 10, on Saturdays and Sundays
-
-You can change the rules on the `Glue.triggers` YAML property in the `facebook-ingest/serverless.yml` file.
+By default, the glue job is triggered by the rule(s) defined inside `serverless-parts/stepFunctions.yml` on the `Glue.triggers` YAML property.
 
 ## Contributing
 
@@ -83,12 +86,20 @@ See [LICENSE](LICENSE) for more information.
 Many thanks to the mantainers of the open source libraries used in this project:
 
 - Serverless Framework: https://github.com/serverless/serverless
-- Serverless Glue: https://github.com/toryas/serverless-glue
 - Pandas: https://github.com/pandas-dev/pandas
 - AWS Data Wrangler: https://github.com/awslabs/aws-data-wrangler
 - Boto3 (AWS SDK for Python): https://github.com/boto/boto3
 - Facebook Business SDK for Python: https://github.com/facebook/facebook-python-business-sdk
 - Sailr (conventional commits git hooke): https://github.com/craicoverflow/sailr/
+
+### Serverless plugins
+
+These are the Serverless plugin used on this project:
+
+- serverless-step-functions: https://github.com/serverless-operations/serverless-step-functions
+- serverless-plugin-log-retention: https://github.com/ArtificerEntertainment/serverless-plugin-log-retention
+- serverless-glue: https://github.com/toryas/serverless-glue
+- serverless-s3-sync: https://github.com/k1LoW/serverless-s3-sync
 
 Contact us if we missed an acknowledgement to your library.
 
