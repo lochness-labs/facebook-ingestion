@@ -1,5 +1,34 @@
 env: ${file(./env/${self:provider.stage}.yml)}
-  
-whl_wr: s3://${self:custom.env.code_bucket}/${self:custom.env.code_prefix}/facebook_ingestion/libraries/awswrangler-2.12.1-py3-none-any.whl
-whl_facebook_sdk: s3://${self:custom.env.code_bucket}/${self:custom.env.code_prefix}/facebook_ingestion/libraries/facebook_business-12.0.0-py3-none-any.whl
-execute_libraries_upload: True # => You can set it as `False` to speed up the deployment if there are no updates to the libraries
+
+glue_args:
+  whl_wr: ${self:custom.s3_libs_path}/awswrangler-2.12.1-py3-none-any.whl
+  whl_facebook_sdk: ${self:custom.s3_libs_path}/facebook_business-12.0.0-py3-none-any.whl
+  execute_libraries_upload: True # => You can set it as `False` to speed up the deployment if there are no updates to the libraries
+
+
+# Environment independent variables
+
+s3_libs_path: s3://${self:custom.env.code_bucket}/${self:custom.env.code_prefix}/${self:custom.env.job_name}/libraries
+s3_conf_prefix: ${self:custom.env.code_prefix}/${self:custom.env.job_name}/conf
+s3_key_conf_file: ${self:custom.s3_conf_prefix}/configuration.yml # see s3Sync
+
+logRetentionInDays: 14
+
+subscription_endpoint_01: ${self:custom.env.sns_subscription_01}
+
+## Lambda layers
+layers:
+  requests_layer_arn: ${self:custom.env.requests_layer}
+
+## See plugin serverless-s3-sync
+s3Sync:
+  - bucketName: ${self:custom.env.code_bucket}
+    bucketPrefix: ${self:custom.s3_conf_prefix}
+    localDir: data-s3sync
+
+
+stack_tags:
+  PROJECT: my-project
+  TYPE: ingestion
+  STACK: ${self:service}
+  ENVIRONMENT: ${self:provider.stage}
