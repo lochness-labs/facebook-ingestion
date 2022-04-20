@@ -14,6 +14,7 @@ S3_CODE_BUCKET = os.getenv('s3_code_bucket')
 LATEST_EPOCH = os.getenv('latest_epoch')
 S3_KEY_CONF_FILE = os.getenv('s3_key_conf_file')
 
+
 def get_logger():
     """
     Get logger suppressing some boto info.
@@ -30,6 +31,7 @@ def get_logger():
 
     return logger
 
+
 logger = get_logger()
 
 
@@ -37,6 +39,9 @@ def handler(event=None, context=None):
 
     try:
         out_event = []
+
+        logger.info(f'FB_SECRET_NAME: ' + str(FB_SECRET_NAME))
+        logger.info(f'FB_USE_SECRET: ' + str(FB_USE_SECRET))
 
         if FB_USE_SECRET:
             logger.info(f'#: Run glue job with credential from SM')
@@ -73,17 +78,18 @@ def handler(event=None, context=None):
                         'fb_secret_name': 'null'
                     })
 
-                return out_event
-
             else:
                 raise ValueError(f'# Request Error: {data.status_code}')
 
         else:
             raise ValueError(f'# Request Error: required FB_SECRET_NAME or FB_SECRETS_URL')
 
+        return out_event
+
     except Exception as e:
         logger.error('#: %s' % e, exc_info=True)
         raise e
+
 
 if __name__ == "__main__":
     handler(event=None, context=None)

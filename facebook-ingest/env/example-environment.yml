@@ -17,3 +17,4 @@ glue_database_name: raw
 ## Here you can use a single value inside Secret Manager or a URL
 fb_secret_name: accessToken-appId-appSecret-businessId/facebookApi/ingestion
 fb_secrets_url: https://external_url/facebook/adaccount/data
+fb_use_secret: true # TODO: comments usage of this variable

@@ -7,9 +7,9 @@ FacebookAccessLoader:
   timeout: 900
   memorySize: 128 # MB
   environment:
-
-    fb_secrets_url: ${self:custom.env.fb_secrets_url} # OR
-    # fb_secret_name: ${self:custom.env.fb_secret_name}
+    fb_secrets_url: ${self:custom.env.fb_secrets_url}
+    fb_secret_name: ${self:custom.env.fb_secret_name}
+    fb_use_secret: ${self:custom.env.fb_use_secret}
 
     job_name:  ${self:custom.env.job_name}
     s3_data_bucket: ${self:custom.env.data_bucket}

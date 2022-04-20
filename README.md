@@ -47,7 +47,9 @@ The name of the files corresponds to the environment names. For example: substit
 
    - For example, we named it `accessToken-appId-appSecret-businessId/facebookApi/ingestion`.
 
-4. Alternatively to 3, it is possible to use an external API to retrieve a list of secrets
+4. Alternatively to 3, it is possible to use an external API to retrieve a list of secrets.
+   
+   -  Make sure to set `fb_use_secret` to false and set the right URL in `fb_secrets_url`.
 
 5. Check and substitute s3 bucket and key as needed on the `wr`, `facebook_sdk` and `pandas` fields in your environment files located in `facebook-ingest/env/`.
 

@@ -20,7 +20,7 @@ import json
 import time
 import boto3
 import base64
-from botocore.client import SecretsManager, S3
+from botocore.client import Client
 import awswrangler as wr
 import logging
 import pytz
@@ -70,7 +70,7 @@ def get_logger():
 logger = get_logger()
 
 
-def get_credentials(secret_manager_client: SecretsManager,
+def get_credentials(secret_manager_client: Client,
                     secret_name: str) -> Dict[str, Any]:
     """
     Decrypts secret stored in AWS Secrets Manager by using the secret-name's associated KMS key.
@@ -93,7 +93,7 @@ def get_credentials(secret_manager_client: SecretsManager,
         return json.loads(decoded_binary_secret)
 
 
-def get_latest_epoch(s3_client: S3, bucket_name: str, zone, tier, source, extraction) -> str:
+def get_latest_epoch(s3_client: Client, bucket_name: str, zone, tier, source, extraction) -> str:
     """
     Given a specific data process (ingestion, pseud-ingestion, refinement, ecc.), based on
     the combination of bucket name, zone, tier, source and extraction, list all metadata for
