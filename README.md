@@ -64,9 +64,9 @@ The name of the files corresponds to the environment names. For example: substit
 
 ## Usage
 
-You can start the Glue job manually from the AWS console or using any of the AWS allowed methods such as AWS CLI, AWS SDKs, etc...
+You can start the state machine manually from the AWS console or using any of the AWS allowed methods such as AWS CLI, AWS SDKs, etc...
 
-There is also a triggering schedule enabled by default, described below:
+There is also a triggering schedule enabled by default, described below.
 
 ## Trigger Schedule
 
