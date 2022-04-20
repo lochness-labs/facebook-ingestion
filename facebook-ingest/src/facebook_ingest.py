@@ -17,7 +17,7 @@ import json
 import time
 import boto3
 import base64
-import botocore
+from botocore.client import SecretsManager, S3
 import awswrangler as wr
 import logging
 import pytz
@@ -139,13 +139,13 @@ fields = {
 }
 
 
-def get_credentials(secret_manager_client: 'botocore.client.SecretsManager',
+def get_credentials(secret_manager_client: SecretsManager,
                     secret_name: str) -> Dict[str, Any]:
     """
     Decrypts secret stored in AWS Secrets Manager by using the secret-name's associated KMS key.
     Depending on whether the secret is a string or binary, a Dict is returned.
 
-    :param secret_manager_client: botocore.client.SecretsManager - SecretsManager client instance
+    :param secret_manager_client: SecretsManager - SecretsManager client instance
     :param secret_name: - Name of the secret as saved in AWS
     :return: Dict[str, object] - Dict containing object stores in SecretsManager
     """
@@ -160,7 +160,7 @@ def get_credentials(secret_manager_client: 'botocore.client.SecretsManager',
         return json.loads(decoded_binary_secret)
 
 
-def get_latest_epoch(s3_client: 'botocore.client.S3', bucket_name: str, zone: str,
+def get_latest_epoch(s3_client: S3, bucket_name: str, zone: str,
                      tier: str, source: str, extraction: str) -> str:
     """
     Given a specific data process (ingestion, pseud-ingestion, refinement, ecc.), based on
@@ -168,7 +168,7 @@ def get_latest_epoch(s3_client: 'botocore.client.S3', bucket_name: str, zone: st
     that specific prefix. Then, grab the last modified one (that is, the last stored), open it
     and get the latest execution time. Then return this value.
 
-    :param s3_client: botocore.client.S3 - Boto3 S3 client instance
+    :param s3_client: S3 - Boto3 S3 client instance
     :param bucket_name: str - Name of the bucket containing the metadata
     :param zone: str - Name of the zone of the data process
     :param tier: str - Name of the tier of the data process
@@ -238,7 +238,7 @@ def get_params(object_type: str, latest_epoch: str) -> Dict[str, Union[str, List
         return params
 
 
-def create_validation_metadata(s3_client: 'botocore.client.S3', execution_time: int,
+def create_validation_metadata(s3_client: S3, execution_time: int,
                                bucket_name: str, zone: str, tier: str, source: str, extraction: str,
                                **kwargs) -> None:
     """
@@ -246,7 +246,7 @@ def create_validation_metadata(s3_client: 'botocore.client.S3', execution_time: 
     and dump it to S3 based on the combination of 'metadata' and bucket_name, zone, tier, source,
     extraction, and execution_time.
 
-    :param s3_client: botocore.client.S3 - Boto3 S3 client instance
+    :param s3_client: S3 - Boto3 S3 client instance
     :param execution_time: int - Execution time of present process
     :param bucket_name: str - Bucket name for the metadata
     :param zone: str - Zone of the present process
