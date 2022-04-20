@@ -20,7 +20,6 @@ import json
 import time
 import boto3
 import base64
-from botocore.client import Client
 import awswrangler as wr
 import logging
 import pytz
@@ -70,15 +69,14 @@ def get_logger():
 logger = get_logger()
 
 
-def get_credentials(secret_manager_client: Client,
-                    secret_name: str) -> Dict[str, Any]:
+def get_credentials(secret_manager_client, secret_name):
     """
     Decrypts secret stored in AWS Secrets Manager by using the secret-name's associated KMS key.
     Depending on whether the secret is a string or binary, a Dict is returned.
 
     TODO/FEAT/GenericWHL: This is a generic function and should be moved into a custom WHL
 
-    :param secret_manager_client: SecretsManager - SecretsManager client instance
+    :param secret_manager_client: botocore.client.Client - SecretsManager client instance
     :param secret_name: - Name of the secret as saved in AWS
     :return: Dict[str, object] - Dict containing object stores in SecretsManager
     """
@@ -93,14 +91,14 @@ def get_credentials(secret_manager_client: Client,
         return json.loads(decoded_binary_secret)
 
 
-def get_latest_epoch(s3_client: Client, bucket_name: str, zone, tier, source, extraction) -> str:
+def get_latest_epoch(s3_client, bucket_name, zone, tier, source, extraction):
     """
     Given a specific data process (ingestion, pseud-ingestion, refinement, ecc.), based on
     the combination of bucket name, zone, tier, source and extraction, list all metadata for
     that specific prefix. Then, grab the last modified one (that is, the last stored), open it
     and get the latest execution time. Then return this value.
 
-    :param s3_client: S3 - Boto3 S3 client instance
+    :param s3_client: botocore.client.Client - Boto3 S3 client instance
     :param bucket_name: str - Name of the bucket containing the metadata
     :param zone: str - Name of the zone of the data process
     :param tier: str - Name of the tier of the data process
