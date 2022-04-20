@@ -1,6 +1,20 @@
-job_name: facebook_ingestion
+job_name: facebook_ads_ingestion
 code_bucket: example-code-s3-bucket-name
 code_prefix: glue-code/scripts
-secret_name: accessToken-appId-appSecret-businessId/facebookApi/ingestion
-data_bucket: example-data-s3-bucket-name
+
+data_bucket: example-date-s3-bucket-name
 aws_region_name: eu-west-1
+
+latest_epoch: "2022-04-18 00:00:00" # First run
+
+requests_layer: arn:aws:lambda:eu-west-1:000000000000:layer:dev_requests:1
+
+sns_subscription_01: your@email.com
+
+glue_database_name: raw
+
+# Credentials access
+## Here you can use a single value inside Secret Manager or a URL
+fb_secret_name: accessToken-appId-appSecret-businessId/facebookApi/ingestion
+fb_secrets_url: https://external_url/facebook/adaccount/data
+
