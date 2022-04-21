@@ -18,3 +18,8 @@ glue_database_name: raw
 fb_secret_name: accessToken-appId-appSecret-businessId/facebookApi/ingestion
 fb_secrets_url: https://external_url/facebook/adaccount/data
 fb_use_secret: true # TODO: comments usage of this variable
+
+stepFunctionEvents:
+  - schedule:
+      rate: cron(00 8 * * ? *)
+      enabled: false # Set to true to enable this scheduled event

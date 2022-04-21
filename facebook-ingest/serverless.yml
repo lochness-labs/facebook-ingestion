@@ -32,4 +32,10 @@ functions:
   ${file(./serverless-parts/functions.yml)}
 
 stepFunctions:
-  ${file(./serverless-parts/stepFunctions.yml)}
+  stateMachines:
+    FacebookAdsStateMachine:
+      name: ${self:provider.stage}-${self:service}
+      definition:
+        ${file(./serverless-parts/sf-FacebookAccessLoader-Definition.yml)}
+      events:
+        ${self:custom.env.stepFunctionEvents}

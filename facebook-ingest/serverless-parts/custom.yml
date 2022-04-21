@@ -5,7 +5,6 @@ glue_args:
   whl_facebook_sdk: ${self:custom.s3_libs_path}/facebook_business-12.0.0-py3-none-any.whl
   execute_libraries_upload: True # => You can set it as `False` to speed up the deployment if there are no updates to the libraries
 
-
 # Environment independent variables
 
 s3_libs_path: s3://${self:custom.env.code_bucket}/${self:custom.env.code_prefix}/${self:custom.env.job_name}/libraries

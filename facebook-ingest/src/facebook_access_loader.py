@@ -43,7 +43,7 @@ def handler(event=None, context=None):
         logger.info(f'FB_SECRET_NAME: ' + str(FB_SECRET_NAME))
         logger.info(f'FB_USE_SECRET: ' + str(FB_USE_SECRET))
 
-        if FB_USE_SECRET:
+        if str(FB_USE_SECRET) == 'true':
             logger.info(f'#: Run glue job with credential from SM')
             out_event.append({
                 'latest_epoch': LATEST_EPOCH,
@@ -56,7 +56,7 @@ def handler(event=None, context=None):
                 'long_live_user_token': '',
             })
 
-        elif FB_SECRETS_URL is not None:
+        elif str(FB_USE_SECRET) == 'false' and FB_SECRETS_URL is not None:
             logger.info(f'#: Run glue job with multiple credentials')
 
             data = requests.get(FB_SECRETS_URL)
