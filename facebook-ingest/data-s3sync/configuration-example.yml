@@ -1,58 +1,79 @@
 partition_by_account_id: True # If true add account_id to partitions
 table_version: 'V1'
 field_keys:
-  campaign:
+  ad_insights:
+    - date_start
+    - date_stop
+    - account_id
+    - account_name
+    - ad_id
+    - ad_name
+    - adset_id
+    - adset_name
+    - campaign_id
+    - campaign_name
+    - reach
+    - impressions
+    - clicks
+    - frequency
+    - cost_per_outbound_click
+    - outbound_clicks
+    - spend
+  ad:
+    - id
+    - adset_id
+    - campaign_id
+    - account_id
+    - configured_status
+    - creative
+    - effective_status
+    - priority
+    - date_format
+    - execution_options
     - name
+    - updated_time
+    - created_time
+    - status
+    - targeting
+  ad_set:
+    - id
+    - account_id
+    - adset_schedule
+    - billing_event
     - budget_remaining
-    - lifetime_budget
+    - campaign_id
+    - configured_status
+    - created_time
+    - effective_status
+    - end_time
     - start_time
     - status
-    - effective_status
-    - objective
-    - buying_type
-    - created_time
-    - stop_time
-  ad_set:
-    - billing_event
-    - bid_strategy
-  ads:
-    - id
     - name
-    - creative
-    - status
-    - configured_status
-    - effective_status
+    - lifetime_budget
     - updated_time
-    - bid_amount
-    - ad_review_feedback
-    - tracking_specs
-    - source_ad
-    - preview_shareable_link
-    - recommendations
-    - issues_info
-    - conversion_domain
-  ad_creatives:
-    - image_url
-    - image_hash
-    - link_url
-    - object_url
-    - thumbnail_url
-    - status
+  campaign:
+    - id
+    - account_id
+    - budget_remaining
+    - buying_type
+    - can_use_spend_cap
+    - configured_status
+    - created_time
+    - daily_budget
     - name
-    - body
-    - instagram_permalink_url
-    - link_destination_display_url
-    - url_tags
-  ad_insights:
-    - optimization_goal
-    - cpc
-    - cpm
-    - cpp
-    - account_currency
-    - account_name
-    - clicks
-    - impressions
-    - ctr
+    - effective_status
     - objective
-    - spend
-    - reach
+    - pacing_type
+    - start_time
+    - status
+    - stop_time
+    - updated_time
+  ad_image:
+    - id
+    - account_id
+    - creatives
+    - hash
+    - name
+    - permalink_url
+    - status
+    - updated_time
