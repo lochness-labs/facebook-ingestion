@@ -52,8 +52,8 @@ def handler(event=None, context=None):
                 'resource_name': JOB_NAME,
                 's3_key_conf_file': S3_KEY_CONF_FILE,
                 'fb_secret_name': FB_SECRET_NAME,
-                'account_id': '',
-                'long_live_user_token': '',
+                'account_id': 'null',
+                'long_live_user_token': 'null',
             })
 
         elif FB_SECRETS_URL is not None:
