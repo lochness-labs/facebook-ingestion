@@ -472,3 +472,6 @@ dist
 
 **/env/*
 !**/env/example-environment.yml
+
+**/data-s3sync/*
+!**/data-s3sync/configuration-example.yml
