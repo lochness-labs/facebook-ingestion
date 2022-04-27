@@ -488,13 +488,12 @@ def get_fb_objects(field_keys):
 def main(event):
 
     default_latest_epoch_date = event['latest_epoch']
-    default_latest_epoch = str(int(datetime.datetime.strptime(
-        default_latest_epoch_date, '%Y-%m-%d %H:%M:%S').timestamp()))
+    default_latest_epoch = str(int(datetime.datetime.strptime(default_latest_epoch_date, '%Y-%m-%d %H:%M:%S').timestamp()))
     data_bucket = event['s3_data_bucket']
     code_bucket = event['s3_code_bucket']
     s3_key_conf_file = event['s3_key_conf_file']
 
-    if 'fb_secret_name' in event and event['fb_secret_name'] != 'null':
+    if 'fb_secret_name' in event and event['fb_secret_name'] != 'none':
         sm_name = event['fb_secret_name']
 
         logger.info(f"#: Using secret_name {sm_name}...")
@@ -502,12 +501,18 @@ def main(event):
         credentials = get_credentials(secret_manager_client=SECRET_MANAGER_CLIENT, secret_name=sm_name)
 
         # Start the connection to the facebook API
-        FacebookAdsApi.init(
-            credentials['FB_APP_ID'],
-            credentials['FB_APP_SECRET'],
-            credentials['FB_ACCESS_TOKEN']
-        )
-    else:
+        if 'FB_APP_ID' in credentials and 'FB_APP_SECRET' in credentials and 'FB_ACCESS_TOKEN' in credentials:
+            FacebookAdsApi.init(
+                credentials['FB_APP_ID'],
+                credentials['FB_APP_SECRET'],
+                credentials['FB_ACCESS_TOKEN']
+            )
+        elif 'long_live_user_token' in credentials:
+            FacebookAdsApi.init(access_token=credentials['long_live_user_token'])
+        else:
+            raise ValueError("Fatal Error: uncorrect credentials from Secret Manager")
+
+    elif 'long_live_user_token' in event and event['long_live_user_token'] != 'none':
         account_id = event['account_id']
         long_token = event['long_live_user_token']
 
@@ -515,6 +520,9 @@ def main(event):
 
         # Start the connection to the facebook API using only the long token
         FacebookAdsApi.init(access_token=long_token)
+
+    else:
+        raise ValueError("Fatal Error: FacebookAdsApi.init failed.")
 
     # Retrieve configuration file
     conf_data = get_config_from_s3(s3_bucket=code_bucket, conf_file_s3_key=s3_key_conf_file)

@@ -16,6 +16,8 @@ logRetentionInDays: 14
 
 subscription_endpoint_01: ${self:custom.env.sns_subscription_01}
 
+sqs_queue_raw_name: ${self:service}-${self:provider.stage}
+
 ## Lambda layers
 layers:
   requests_layer_arn: ${self:custom.env.requests_layer}
