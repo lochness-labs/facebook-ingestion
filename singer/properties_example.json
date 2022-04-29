@@ -1,0 +1,237 @@
+{"streams": [{
+  "stream": "campaigns",
+  "tap_stream_id": "campaigns",
+  "schema": {
+    "properties": {
+      "name": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "objective": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "id": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "account_id": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "effective_status": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "buying_type": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "spend_cap": {
+        "type": [
+          "null",
+          "number"
+        ]
+      },
+      "start_time": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updated_time": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "ads": {
+        "properties": {
+          "data": {
+            "items": {
+              "properties": {
+                "id": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              },
+              "type": [
+                "null",
+                "object"
+              ]
+            },
+            "type": [
+              "null",
+              "array"
+            ]
+          }
+        },
+        "type": [
+          "null",
+          "object"
+        ]
+      },
+      "adlabels": {
+        "type": [
+          "null",
+          "array"
+        ],
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "created_time": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updated_time": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "type": [
+      "null",
+      "object"
+    ]
+  },
+  "metadata": [
+    {
+      "breadcrumb": [],
+      "metadata": {
+        "selected": true,
+        "table-key-properties": [
+          "id"
+        ],
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "name"
+      ],
+      "metadata": {
+        "selected": true,
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "objective"
+      ],
+      "metadata": {
+        "selected": true,
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "id"
+      ],
+      "metadata": {
+        "selected": true,
+        "inclusion": "automatic"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "account_id"
+      ],
+      "metadata": {
+        "selected": true,
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "effective_status"
+      ],
+      "metadata": {
+        "selected": true,
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "buying_type"
+      ],
+      "metadata": {
+        "selected": true,
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "spend_cap"
+      ],
+      "metadata": {
+        "selected": true,
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "start_time"
+      ],
+      "metadata": {
+        "selected": true,
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "updated_time"
+      ],
+      "metadata": {
+        "selected": true,
+        "inclusion": "automatic"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "ads"
+      ],
+      "metadata": {
+        "selected": true,
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "adlabels"
+      ],
+      "metadata": {
+        "selected": true,
+        "inclusion": "available"
+      }
+    }
+  ]
+}]}

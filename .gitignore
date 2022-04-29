@@ -467,3 +467,14 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# singer
+singer/*config*
+!singer/config_example.json
+
+singer/*catalog*
+
+singer/*properties*
+!singer/properties_example.json
+
+singer/*state*
