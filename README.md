@@ -88,7 +88,7 @@ Many thanks to the mantainers of the open source libraries used in this project:
 - AWS Data Wrangler: https://github.com/awslabs/aws-data-wrangler
 - Boto3 (AWS SDK for Python): https://github.com/boto/boto3
 - Facebook Business SDK for Python: https://github.com/facebook/facebook-python-business-sdk
-- Sailr (conventional commits git hooke): https://github.com/craicoverflow/sailr/
+- Sailr (conventional commits git hook): https://github.com/craicoverflow/sailr/
 
 Contact us if we missed an acknowledgement to your library.
 
