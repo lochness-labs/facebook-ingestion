@@ -43,7 +43,7 @@ def handler(event=None, context=None):
         logger.info(f'FB_SECRET_NAME: ' + str(FB_SECRET_NAME))
         logger.info(f'FB_USE_SECRET: ' + str(FB_USE_SECRET))
 
-        if FB_USE_SECRET:
+        if str(FB_USE_SECRET) == 'true':
             logger.info(f'#: Run glue job with credential from SM')
             out_event.append({
                 'latest_epoch': LATEST_EPOCH,
@@ -52,8 +52,8 @@ def handler(event=None, context=None):
                 'resource_name': JOB_NAME,
                 's3_key_conf_file': S3_KEY_CONF_FILE,
                 'fb_secret_name': FB_SECRET_NAME,
-                'account_id': '',
-                'long_live_user_token': '',
+                'account_id': 'none',
+                'long_live_user_token': 'none',
             })
 
         elif FB_SECRETS_URL is not None:
@@ -75,7 +75,7 @@ def handler(event=None, context=None):
                         's3_key_conf_file': S3_KEY_CONF_FILE,
                         'account_id': item['ad_accont_id'],
                         'long_live_user_token': item['long_live_user_token'],
-                        'fb_secret_name': 'null'
+                        'fb_secret_name': 'none'
                     })
 
             else:

@@ -64,3 +64,38 @@ Resources:
                   - secretsmanager:GetSecretValue
                 Resource:
                   - arn:aws:secretsmanager:${aws:region}:${aws:accountId}:secret:${self:custom.env.fb_secret_name}*
+
+  SQSFacebookRaw:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:custom.sqs_queue_raw_name}
+      DelaySeconds: 1
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 1209600 # 14days
+      ReceiveMessageWaitTimeSeconds: 20
+      VisibilityTimeout: 3600 # (in seconds) must be greater then lambda time
+      RedrivePolicy:
+        deadLetterTargetArn:
+          Fn::GetAtt:
+          - SQSFacebookRawDLQ
+          - Arn
+        maxReceiveCount: 5 # Let message to re-appear in case of errors after visibility timeout. Then move to DLQ
+
+  SQSFacebookPolicyRaw:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - Ref: SQSFacebookRaw
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action:
+              - SQS:*
+            Resource: "arn:aws:sqs:${aws:region}:${aws:accountId}:${self:custom.sqs_queue_raw_name}"
+
+  SQSFacebookRawDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:custom.sqs_queue_raw_name}DLQ
+      MessageRetentionPeriod: 1209600 # 14days
+      VisibilityTimeout: 1

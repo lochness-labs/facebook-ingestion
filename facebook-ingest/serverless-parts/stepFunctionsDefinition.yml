@@ -72,7 +72,12 @@ States:
     Next: ExecutionFailed
 
   ExecutionSucceded:
-    Type: Succeed
+    Type: Task
+    Resource: "arn:aws:states:::sqs:sendMessage"
+    Parameters:
+      QueueUrl: !Ref SQSFacebookRaw
+      MessageBody.$: $
+    End: True
 
   ExecutionFailed:
     Type: Fail

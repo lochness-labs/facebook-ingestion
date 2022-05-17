@@ -33,3 +33,4 @@ functions:
 
 stepFunctions:
   ${file(./serverless-parts/stepFunctions.yml)}
+
