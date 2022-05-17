@@ -6,9 +6,9 @@ from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.adobjects.adreportrun import AdReportRun
 from facebook_business.adobjects.adsinsights import AdsInsights
 from facebook_business.adobjects.ad import Ad
-from facebook_business.adobjects.adset import AdSet  # !
-from facebook_business.adobjects.campaign import Campaign  # !
-from facebook_business.adobjects.adcreative import AdCreative  # !
+from facebook_business.adobjects.adset import AdSet
+from facebook_business.adobjects.campaign import Campaign
+from facebook_business.adobjects.adcreative import AdCreative
 from facebook_business.adobjects.adimage import AdImage
 from facebook_business.adobjects.user import User
 from facebook_business.adobjects.adpreview import AdPreview
@@ -251,8 +251,11 @@ def get_preview_url(df):
         time.sleep(1.5)
 
         ad_id = str(ad_id)
-        publisher = df.loc[df['id'] == ad_id]['publisher_platforms'].max(
-        )[0] if df.loc[df['id'] == ad_id]['publisher_platforms'].max() != '' else ''
+
+        try:
+            publisher = df.loc[df['id'] == ad_id]['publisher_platforms'].max()[0] if df.loc[df['id'] == ad_id]['publisher_platforms'].max() != '' else ''
+        except:
+            publisher = ''
 
         if publisher != '':
             if publisher == 'instagram' and df.loc[df['id'] == ad_id]['instagram_positions'].max() != '':
@@ -314,6 +317,8 @@ def get_objects(object_type, account_id, fields, params, latest_epoch=None):
         objects = account_id.get_campaigns(params=params, fields=fields[object_type])
     elif object_type == 'ad_image':
         objects = account_id.get_ad_images(params=params, fields=fields[object_type])
+    elif object_type == 'ad_creatives':
+        objects = account_id.get_ad_creatives(params=params, fields=fields[object_type])
     elif object_type == 'ad_insights':
         async_job = account_id.get_insights(params=params, fields=fields[object_type], is_async=True)
         async_job.api_get()
@@ -488,13 +493,12 @@ def get_fb_objects(field_keys):
 def main(event):
 
     default_latest_epoch_date = event['latest_epoch']
-    default_latest_epoch = str(int(datetime.datetime.strptime(
-        default_latest_epoch_date, '%Y-%m-%d %H:%M:%S').timestamp()))
+    default_latest_epoch = str(int(datetime.datetime.strptime(default_latest_epoch_date, '%Y-%m-%d %H:%M:%S').timestamp()))
     data_bucket = event['s3_data_bucket']
     code_bucket = event['s3_code_bucket']
     s3_key_conf_file = event['s3_key_conf_file']
 
-    if 'fb_secret_name' in event and event['fb_secret_name'] != 'null':
+    if 'fb_secret_name' in event and event['fb_secret_name'] != 'none':
         sm_name = event['fb_secret_name']
 
         logger.info(f"#: Using secret_name {sm_name}...")
@@ -502,12 +506,18 @@ def main(event):
         credentials = get_credentials(secret_manager_client=SECRET_MANAGER_CLIENT, secret_name=sm_name)
 
         # Start the connection to the facebook API
-        FacebookAdsApi.init(
-            credentials['FB_APP_ID'],
-            credentials['FB_APP_SECRET'],
-            credentials['FB_ACCESS_TOKEN']
-        )
-    else:
+        if 'FB_APP_ID' in credentials and 'FB_APP_SECRET' in credentials and 'FB_ACCESS_TOKEN' in credentials:
+            FacebookAdsApi.init(
+                credentials['FB_APP_ID'],
+                credentials['FB_APP_SECRET'],
+                credentials['FB_ACCESS_TOKEN']
+            )
+        elif 'long_live_user_token' in credentials:
+            FacebookAdsApi.init(access_token=credentials['long_live_user_token'])
+        else:
+            raise ValueError("Fatal Error: uncorrect credentials from Secret Manager")
+
+    elif 'long_live_user_token' in event and event['long_live_user_token'] != 'none':
         account_id = event['account_id']
         long_token = event['long_live_user_token']
 
@@ -515,6 +525,9 @@ def main(event):
 
         # Start the connection to the facebook API using only the long token
         FacebookAdsApi.init(access_token=long_token)
+
+    else:
+        raise ValueError("Fatal Error: FacebookAdsApi.init failed.")
 
     # Retrieve configuration file
     conf_data = get_config_from_s3(s3_bucket=code_bucket, conf_file_s3_key=s3_key_conf_file)
@@ -534,7 +547,7 @@ def main(event):
 
     try:
         # All object type list # TODO/FEAT/MoreGeneric
-        object_type_list = ['ad', 'ad_set', 'campaign', 'ad_insights']
+        object_type_list = ['ad', 'ad_set', 'campaign', 'ad_insights', 'ad_creatives']
 
         # If sunday, add ad_image to object_type list
         if datetime.date.today().weekday() == 6:  # TODO/FEAT/MoreGeneric
@@ -583,8 +596,7 @@ def main(event):
             # Get parameters to be passed to the API
             if object_type == 'ad_insights':
                 logger.info(f'#: History ad_insights value: {history}')
-                params_yesterday, params_today = get_params(
-                    object_type=object_type, latest_epoch=latest_epoch, history=history)
+                params_yesterday, params_today = get_params(object_type=object_type, latest_epoch=latest_epoch, history=history)
                 logger.info(f"Yesterday params: {params_yesterday}\nToday params {params_today}")
             else:
                 # TODO/DoubleCheck: what about the history of other types?
@@ -616,6 +628,7 @@ def main(event):
                                                fields=fields,
                                                params=params,
                                                latest_epoch=latest_epoch)).reset_index(drop=True)
+
 
             # Sink df containing all data of all ad account of the one object type at hand
             df.pipe(sink,
