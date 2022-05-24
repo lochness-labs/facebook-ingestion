@@ -137,18 +137,7 @@ def get_params(object_type, latest_epoch, history):
 
     logger.info(f"Object type is {object_type}, creating parameters accordingly...")
 
-    if object_type in ['ad', 'ad_set', 'campaign']:
-        params = {
-            'filtering': [{
-                'field': "updated_time",
-                'operator': "GREATER_THAN",
-                'value': latest_epoch
-            }],
-            'limit': 1000
-        }
-        return params
-
-    elif object_type in ['ad_insights']:
+    if object_type in ['ad_insights']:
         today = datetime.datetime.now().strftime("%Y-%m-%d")  # today
         yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")  # yesterday
 
@@ -173,9 +162,16 @@ def get_params(object_type, latest_epoch, history):
 
         return params_since, params_until
 
-    else:
-        params = {}
-        return params
+    # Default
+    params = {
+        'filtering': [{
+            'field': "updated_time",
+            'operator': "GREATER_THAN",
+            'value': latest_epoch
+        }],
+        'limit': 1000
+    }
+    return params
 
 
 def create_validation_metadata(
@@ -607,28 +603,31 @@ def main(event):
             for account in accounts:
                 time.sleep(5)  # TODO/DoubleCheck: does it really have to be hardcoded to 5?
 
-                ad_account_id = AdAccount(account[AdAccount.Field.id])
-                logger.info(f"Querying {object_type} objects of {account['name']}, id: {account['id']}")
+                try:
+                    ad_account_id = AdAccount(account[AdAccount.Field.id])
+                    logger.info(f"Querying {object_type} objects of {account['name']}, id: {account['id']}")
 
-                # Get data for object type of the ad account and append it to the df to be sinked
-                if object_type == 'ad_insights':
-                    logger.info("Querying yesterday's data for ad_insights")
-                    df = df.append(get_objects(object_type=object_type,
-                                               account_id=ad_account_id,
-                                               fields=fields,
-                                               params=params_yesterday)).reset_index(drop=True)
-                    logger.info("Querying today's data for adinsights")
-                    df = df.append(get_objects(object_type=object_type,
-                                               account_id=ad_account_id,
-                                               fields=fields,
-                                               params=params_today)).reset_index(drop=True)
-                else:
-                    df = df.append(get_objects(object_type=object_type,
-                                               account_id=ad_account_id,
-                                               fields=fields,
-                                               params=params,
-                                               latest_epoch=latest_epoch)).reset_index(drop=True)
-
+                    # Get data for object type of the ad account and append it to the df to be sinked
+                    if object_type == 'ad_insights':
+                        logger.info("Querying yesterday's data for ad_insights")
+                        df = df.append(get_objects(object_type=object_type,
+                                                account_id=ad_account_id,
+                                                fields=fields,
+                                                params=params_yesterday)).reset_index(drop=True)
+                        logger.info("Querying today's data for adinsights")
+                        df = df.append(get_objects(object_type=object_type,
+                                                account_id=ad_account_id,
+                                                fields=fields,
+                                                params=params_today)).reset_index(drop=True)
+                    else:
+                        df = df.append(get_objects(object_type=object_type,
+                                                account_id=ad_account_id,
+                                                fields=fields,
+                                                params=params,
+                                                latest_epoch=latest_epoch)).reset_index(drop=True)
+                except Exception as e:
+                    logger.info(e)
+                    continue
 
             # Sink df containing all data of all ad account of the one object type at hand
             df.pipe(sink,
@@ -643,7 +642,7 @@ def main(event):
                     fields=fields[object_type],
                     table_version=table_version,
                     account_id=account['id']
-                    )
+            )
 
         logger.info("I'm done")
 
