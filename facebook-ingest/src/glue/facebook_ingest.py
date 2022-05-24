@@ -135,9 +135,26 @@ def get_params(object_type, latest_epoch, history):
     :return: Dict - Dictionary containing parameters to be passed to a Facebook API call
     """
 
+    """
+    Facebook params needs to be valid. To know what filtering options are availabe go to
+    https://github.com/facebook/facebook-python-business-sdk/blob/714d24e6aa3d58df19890924ae37de7bfe712365/facebook_business/adobjects/adcreative.py#L277
+    https://github.com/facebook/facebook-python-business-sdk/blob/714d24e6aa3d58df19890924ae37de7bfe712365/facebook_business/adobjects/campaign.py#L481
+    """
+
     logger.info(f"Object type is {object_type}, creating parameters accordingly...")
 
-    if object_type in ['ad_insights']:
+    if object_type in ['ad', 'ad_set', 'campaign']:
+        params = {
+            'filtering': [{
+                'field': "updated_time",
+                'operator': "GREATER_THAN",
+                'value': latest_epoch
+            }],
+            'limit': 1000
+        }
+        return params
+
+    elif object_type in ['ad_insights']:
         today = datetime.datetime.now().strftime("%Y-%m-%d")  # today
         yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")  # yesterday
 
@@ -162,15 +179,10 @@ def get_params(object_type, latest_epoch, history):
 
         return params_since, params_until
 
-    # Default
     params = {
-        'filtering': [{
-            'field': "updated_time",
-            'operator': "GREATER_THAN",
-            'value': latest_epoch
-        }],
         'limit': 1000
     }
+
     return params
 
 
